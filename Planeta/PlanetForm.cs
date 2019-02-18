@@ -20,25 +20,44 @@ namespace Planeta
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Thread serverMensajeThread = new Thread(() => receTcp.connecTcpPort("172.17.20.204",5000));
-            serverMensajeThread.SetApartmentState(ApartmentState.STA);
-            serverMensajeThread.Start();
+            //Thread serverMensajeThread = new Thread(() => receTcp.connecTcpPort("172.17.20.204", 5000));
+            //serverMensajeThread.SetApartmentState(ApartmentState.STA);
+            //serverMensajeThread.Start();
+            Thread serverMensaThread = new Thread(planet);
+            serverMensaThread.SetApartmentState(ApartmentState.STA);
+            serverMensaThread.Start();
+
         }
 
 
-        void planet() {
-
-            while (true)
+        public void planet()
+        {
+            receTcp.connecTcpPort("172.17.20.204", 5000);
+          
+            if (label1.InvokeRequired)
             {
-                label1.Text = receTcp.receMessage();
-
-
-
+                label1.Invoke((MethodInvoker)delegate
+                {
+                    label1.Text = receTcp.Message;
+                });
             }
+            else
+            {
+                label1.Text = receTcp.Message;
+            }
+            
+        
+
+
 
 
         }
+
+
 
 
     }
+
+
 }
+

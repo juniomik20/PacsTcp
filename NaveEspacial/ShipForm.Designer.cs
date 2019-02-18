@@ -48,7 +48,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.ConnectButton);
             this.Name = "ShipForm";
-            this.Text = "Form1";
+            this.Text = "shipForm";
             this.ResumeLayout(false);
 
         }

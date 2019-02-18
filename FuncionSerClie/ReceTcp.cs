@@ -44,21 +44,32 @@ namespace FuncionSerClie
                     {
                         client = Listener.AcceptTcpClient();
                         string data;
-                        Byte[] bytes = new Byte[1024];
+                        byte[] bytes = new byte[1024];
                         data = null;
                         NetworkStream stream = client.GetStream();
-                        data = String.Empty;
-                        Int32 ReadBytes = stream.Read(bytes, 0, bytes.Length);
-                        _Message = System.Text.Encoding.ASCII.GetString(bytes, 0, ReadBytes);
+                        data = string.Empty;
+                        if (port == 5000)
+                        {
+                            Int32 ReadBytes = stream.Read(bytes, 0, bytes.Length);
+                            _Message = System.Text.Encoding.ASCII.GetString(bytes, 0, ReadBytes);
+                        }
 
+                        stream.Close();
+                        client.Close();
                     }
-
+                    
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    _Message = ex.Message;
+                }
+                finally{
+                    
                 }
             }
+           
+
+
         }
     }
 }
