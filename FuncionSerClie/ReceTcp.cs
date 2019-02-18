@@ -11,9 +11,10 @@ namespace FuncionSerClie
 
         private string _Message;
 
-        public string Message {
-            set(_Message= value);
-            get(return _Message;)
+        public string Message
+        {
+            get { return _Message; }
+            set { _Message = value; }
         }
 
 
@@ -48,7 +49,7 @@ namespace FuncionSerClie
                         NetworkStream stream = client.GetStream();
                         data = String.Empty;
                         Int32 ReadBytes = stream.Read(bytes, 0, bytes.Length);
-                        string responseData = System.Text.Encoding.ASCII.GetString(bytes, 0, ReadBytes);
+                        _Message = System.Text.Encoding.ASCII.GetString(bytes, 0, ReadBytes);
 
                     }
 
