@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace NaveEspacial
+namespace Planeta
 {
     static class Program
     {
@@ -16,7 +16,7 @@ namespace NaveEspacial
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ShipForm());
+            Application.Run(new PlanetForm());
         }
     }
 }

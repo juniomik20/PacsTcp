@@ -12,8 +12,20 @@ namespace FuncionSerClie
 
             TcpClient client = new TcpClient(ip, port);
             NetworkStream stream = client.GetStream();
+
+            if (true)
+            {
+
+            }
             data = System.Text.Encoding.ASCII.GetBytes(mensajeOrPath);
             stream.Write(data, 0, data.Length);
+        }
+        public void sendZip(string path) {
+
+            
+
+
+
 
         }
 
