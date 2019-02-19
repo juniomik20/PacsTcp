@@ -22,7 +22,7 @@ namespace NaveEspacial
         private void ConnectButton_Click(object sender, EventArgs e)
         {
 
-            sendTcp.sendMessage("hola", "172.17.20.204", 5000);
+            sendTcp.sendMessage("hola", "172.17.20.204", 8733);
         }
     }
 }
