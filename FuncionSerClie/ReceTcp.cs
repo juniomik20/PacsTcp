@@ -45,39 +45,19 @@ namespace FuncionSerClie
                         clientTcp = true;
                         client = Listener.AcceptTcpClient();
                         byte[] bytes = new byte[1024];
-<<<<<<< HEAD
-<<<<<<< refs/remotes/origin/morata
-                        NetworkStream stream = client.GetStream();
-=======
                         stream = client.GetStream();
->>>>>>> send Zip
-=======
-                        stream = client.GetStream();
->>>>>>> master
                         if (port == 8733)
                         {
                             Int32 ReadBytes = stream.Read(bytes, 0, bytes.Length);
                             _Message = System.Text.Encoding.ASCII.GetString(bytes, 0, ReadBytes);
                         }
-<<<<<<< HEAD
-<<<<<<< refs/remotes/origin/morata
                         else {
 
                             receZip();
                         }
-                        stream.Close();
-                        client.Close();
-=======
-=======
->>>>>>> master
-                        else
-                        {
+                       
+                        
 
-                        }
-<<<<<<< HEAD
->>>>>>> send Zip
-=======
->>>>>>> master
                     }
                 }
                 catch (Exception ex)
@@ -92,13 +72,8 @@ namespace FuncionSerClie
 
                 }
             }
-<<<<<<< HEAD
         }
         public void receZip() {
-
-        
-=======
->>>>>>> master
         }
     }
 }

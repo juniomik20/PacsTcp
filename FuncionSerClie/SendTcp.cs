@@ -8,24 +8,8 @@ namespace FuncionSerClie
     {
         byte[] data = new byte[1024];
         private const int BufferSize = 1024;
-<<<<<<< HEAD
 
-<<<<<<< refs/remotes/origin/morata
-        //Mensaje del cliente
         public void sendMessage(string mensajeOrPath,string ip, int port) {
-=======
-
-        public void sendMessage(string mensajeOrPath, string ip, int port)
-        {
->>>>>>> send Zip
-
-=======
-
-
-        public void sendMessage(string mensajeOrPath, string ip, int port)
-        {
-            //objects
->>>>>>> master
             TcpClient client = new TcpClient(ip, port);
             NetworkStream stream = client.GetStream();
             if (port == 8733)
@@ -42,10 +26,6 @@ namespace FuncionSerClie
         }
         public void sendZip(string path, NetworkStream netstream)
         {
-<<<<<<< HEAD
-
-=======
->>>>>>> master
             byte[] SendingBuffer = null;
             byte[] RecData = new byte[BufferSize];
             FileStream fs = null;
@@ -67,14 +47,10 @@ namespace FuncionSerClie
                     fs.Read(SendingBuffer, 0, CurrentPacketLength);
                     netstream.Write(SendingBuffer, 0, (int)SendingBuffer.Length);
                     fs.Flush();
-<<<<<<< HEAD
                 }
-
-
-=======
                 }                
->>>>>>> master
-            }
+
+            
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
