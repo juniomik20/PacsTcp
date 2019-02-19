@@ -9,20 +9,28 @@ namespace FuncionSerClie
         byte[] data = new byte[1024];
         private const int BufferSize = 1024;
 
-        public void sendMessage(string mensajeOrPath,string ip, int port) {
-            TcpClient client = new TcpClient(ip, port);
-            NetworkStream stream = client.GetStream();
-            if (port == 8733)
+        public void sendMessage(string mensajeOrPath,string ip, int port)
+        {
+            try
             {
-                data = System.Text.Encoding.ASCII.GetBytes(mensajeOrPath);
-                stream.Write(data, 0, data.Length);
+                TcpClient client = new TcpClient(ip, port);
+                NetworkStream stream = client.GetStream();
+                if (port == 8733)
+                {
+                    data = System.Text.Encoding.ASCII.GetBytes(mensajeOrPath);
+                    stream.Write(data, 0, data.Length);
+                }
+                else
+                {
+                    sendZip(mensajeOrPath, stream);
+                }
+                client.Close();
+                stream.Close();
             }
-            else
+            catch(Exception e)
             {
-                sendZip(mensajeOrPath, stream);
+                Console.WriteLine(e.Message);
             }
-            client.Close();
-            stream.Close();
         }
         public void sendZip(string path, NetworkStream netstream)
         {

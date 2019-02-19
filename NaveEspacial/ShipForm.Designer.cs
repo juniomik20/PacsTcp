@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.ConnectButton = new System.Windows.Forms.Button();
+            this.txtmessage = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // ConnectButton
@@ -41,21 +42,32 @@
             this.ConnectButton.UseVisualStyleBackColor = true;
             this.ConnectButton.Click += new System.EventHandler(this.ConnectButton_Click);
             // 
+            // txtmessage
+            // 
+            this.txtmessage.Location = new System.Drawing.Point(130, 223);
+            this.txtmessage.Name = "txtmessage";
+            this.txtmessage.Size = new System.Drawing.Size(100, 20);
+            this.txtmessage.TabIndex = 1;
+            // 
             // ShipForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.txtmessage);
             this.Controls.Add(this.ConnectButton);
             this.Name = "ShipForm";
             this.Text = "shipForm";
+            this.Load += new System.EventHandler(this.ShipForm_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Button ConnectButton;
+        private System.Windows.Forms.TextBox txtmessage;
     }
 }
 
