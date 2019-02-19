@@ -22,7 +22,7 @@ namespace NaveEspacial
         private void ConnectButton_Click(object sender, EventArgs e)
         {
             string path = Application.StartupPath + @"PacsSol.txt";
-            sendTcp.sendMessage("hola", "172.17.20.157", 5000);
+            sendTcp.sendMessage("hola", "172.17.20.254", 5000);
 
         }
     }

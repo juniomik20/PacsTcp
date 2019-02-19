@@ -12,6 +12,7 @@ namespace Planeta
 {
     public partial class PlanetForm : Form
     {
+        string path = Application.StartupPath;
         FuncionSerClie.ReceTcp receTcp = new FuncionSerClie.ReceTcp();
         public PlanetForm()
         {
@@ -20,24 +21,27 @@ namespace Planeta
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //Thread serverMensajeThread = new Thread(() => receTcp.connecTcpPort("172.17.20.204", 5000));
-            //serverMensajeThread.SetApartmentState(ApartmentState.STA);
-            //serverMensajeThread.Start();
-            Thread serverMensaThread = new Thread(planet);
-            serverMensaThread.SetApartmentState(ApartmentState.STA);
-            serverMensaThread.Start();
+            Thread serverMensajeThread = new Thread(() => receTcp.connecTcpPort(8733,path));
+            serverMensajeThread.SetApartmentState(ApartmentState.STA);
+            serverMensajeThread.Start();
+            //Thread serverMensaThread = new Thread(planet);
+            //serverMensaThread.SetApartmentState(ApartmentState.STA);
+            //serverMensaThread.Start();
 
         }
 
 
         public void planet()
         {
-            string path = Application.StartupPath;
-            receTcp.connecTcpPort(5000, path);
-            string hola = receTcp.Message;
-           
-            
-         
+    
+
+
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+             label1.Text = receTcp.Message;
         }
     }
 
