@@ -12,7 +12,7 @@ namespace FuncionSerClie
 
         public void sendMessage(string mensajeOrPath, string ip, int port)
         {
-
+            //objects
             TcpClient client = new TcpClient(ip, port);
             NetworkStream stream = client.GetStream();
             if (port == 8733)
@@ -29,7 +29,6 @@ namespace FuncionSerClie
         }
         public void sendZip(string path, NetworkStream netstream)
         {
-
             byte[] SendingBuffer = null;
             byte[] RecData = new byte[BufferSize];
             FileStream fs = null;
@@ -51,9 +50,7 @@ namespace FuncionSerClie
                     fs.Read(SendingBuffer, 0, CurrentPacketLength);
                     netstream.Write(SendingBuffer, 0, (int)SendingBuffer.Length);
                     fs.Flush();
-                }
-
-
+                }                
             }
             catch (Exception e)
             {
