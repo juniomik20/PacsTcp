@@ -44,10 +44,14 @@ namespace FuncionSerClie
                         client = Listener.AcceptTcpClient();
                         byte[] bytes = new byte[1024];
                         NetworkStream stream = client.GetStream();
-                        if (port == 5000)
+                        if (port == 8733)
                         {
                             Int32 ReadBytes = stream.Read(bytes, 0, bytes.Length);
                             _Message = System.Text.Encoding.ASCII.GetString(bytes, 0, ReadBytes);
+                        }
+                        else {
+
+                            receZip();
                         }
                         stream.Close();
                         client.Close();
@@ -61,6 +65,10 @@ namespace FuncionSerClie
                     
                 }
         }         
+        }
+        public void receZip() {
+
+        
         }
     }
 }
