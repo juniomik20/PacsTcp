@@ -7,7 +7,7 @@ namespace FuncionSerClie
     {
         Byte[] data = new Byte[1024];
 
-
+        //Mensaje del cliente
         public void sendMessage(string mensajeOrPath,string ip, int port) {
 
             TcpClient client = new TcpClient(ip, port);
