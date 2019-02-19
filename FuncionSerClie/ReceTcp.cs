@@ -61,7 +61,7 @@ namespace FuncionSerClie
                         }
                         else {
 
-                            receZip(client,);
+                            receZip(client, stream);
                         }
                        
                         
@@ -81,7 +81,7 @@ namespace FuncionSerClie
                 }
             }
         }
-        public void receZip(TcpClient client)
+        public void receZip(TcpClient client, NetworkStream netstream)
         {
             //borrarArchivos();
             string SaveFileName = Application.StartupPath + @"\Fitxers\Dessifra\PACS.zip";
