@@ -33,7 +33,7 @@ namespace Planeta
         public void planet()
         {
             string path = Application.StartupPath;
-            receTcp.connecTcpPort(8733, path);
+            receTcp.connecTcpPort(5000, path);
             string hola = receTcp.Message;
            
             
