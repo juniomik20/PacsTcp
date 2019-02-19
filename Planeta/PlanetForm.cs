@@ -31,31 +31,20 @@ namespace Planeta
 
 
         public void planet()
-        {
-            receTcp.connecTcpPort("172.17.20.204", 5000);
-          
+        {      
+            receTcp.connecTcpPort(5000);
+            //string hola = receTcp.Message;
             if (label1.InvokeRequired)
             {
-                label1.Invoke((MethodInvoker)delegate
-                {
-                    label1.Text = receTcp.Message;
-                });
+                label1.Invoke((MethodInvoker)delegate { label1.Text = receTcp.Message; });
             }
             else
             {
                 label1.Text = receTcp.Message;
             }
             
-        
-
-
-
-
+         
         }
-
-
-
-
     }
 
 

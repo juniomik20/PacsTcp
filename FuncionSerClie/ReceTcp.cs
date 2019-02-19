@@ -18,14 +18,13 @@ namespace FuncionSerClie
         }
 
 
-        public void connecTcpPort(string ip, int port)
+        public void connecTcpPort(int port)
         {
             TcpListener Listener = null;
             try
             {
 
-                IPAddress localAddr = IPAddress.Parse(ip);
-                Listener = new TcpListener(localAddr, port);
+                Listener = new TcpListener(IPAddress.Any, port);
                 Listener.Start();
 
             }
@@ -35,41 +34,33 @@ namespace FuncionSerClie
             }
 
             TcpClient client = null;
-            while (true)
-            {
-
+            bool clientTcp = false;
+            while (!clientTcp) { 
                 try
                 {
                     if (Listener.Pending())
                     {
+                        clientTcp = true;
                         client = Listener.AcceptTcpClient();
-                        string data;
                         byte[] bytes = new byte[1024];
-                        data = null;
                         NetworkStream stream = client.GetStream();
-                        data = string.Empty;
                         if (port == 5000)
                         {
                             Int32 ReadBytes = stream.Read(bytes, 0, bytes.Length);
                             _Message = System.Text.Encoding.ASCII.GetString(bytes, 0, ReadBytes);
                         }
-
                         stream.Close();
                         client.Close();
                     }
-                    
                 }
                 catch (Exception ex)
                 {
                     _Message = ex.Message;
                 }
-                finally{
+                finally {
                     
                 }
-            }
-           
-
-
+        }         
         }
     }
 }
