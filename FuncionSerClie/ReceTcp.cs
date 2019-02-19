@@ -51,13 +51,11 @@ namespace FuncionSerClie
                             Int32 ReadBytes = stream.Read(bytes, 0, bytes.Length);
                             _Message = System.Text.Encoding.ASCII.GetString(bytes, 0, ReadBytes);
                         }
-                        else {
+                        else
+                        {
 
                             receZip();
                         }
-                       
-                        
-
                     }
                 }
                 catch (Exception ex)
@@ -73,7 +71,9 @@ namespace FuncionSerClie
                 }
             }
         }
-        public void receZip() {
+        public void receZip()
+        {
+
         }
     }
 }
