@@ -32,7 +32,7 @@ namespace Planeta
 
         public void planet()
         {      
-            receTcp.connecTcpPort(5000);
+            receTcp.connecTcpPort(8733);
             //string hola = receTcp.Message;
             if (label1.InvokeRequired)
             {
