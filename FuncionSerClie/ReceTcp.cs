@@ -41,11 +41,12 @@ namespace FuncionSerClie
                 Console.WriteLine(ex.Message);
             }
 
-            TcpClient client = null;
-            NetworkStream stream = null;
+            
             bool clientTcp = false;
-            while (!clientTcp)
+            while (true)
             {
+                TcpClient client = null;
+                NetworkStream stream = null;
                 try
                 {
                     if (Listener.Pending())
@@ -65,16 +66,18 @@ namespace FuncionSerClie
                             receZip(client, stream,path);
                         }
                     }
+
+                    stream.Close();
+                    client.Close();
+
+
                 }
                 catch (Exception ex)
                 {
-                    _Message = ex.Message;
                 }
                 finally
                 {
-                    clientTcp = false;
-                    stream.Close();
-                    client.Close();
+                    
 
                 }
             }
@@ -93,6 +96,7 @@ namespace FuncionSerClie
                     Fs.Flush();
                 }
             }
+            netstream.Close();
         }
     }
 }

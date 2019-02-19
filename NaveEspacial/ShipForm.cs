@@ -29,6 +29,7 @@ namespace NaveEspacial
 
         }
 
+
         public string identifiMessage()
         {
             string message = null;
