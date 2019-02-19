@@ -3,11 +3,19 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Data;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+
 
 namespace FuncionSerClie
 {
     public class ReceTcp
     {
+        private const int BufferSize = 2048;
+        byte[] RecData = new byte[BufferSize];
+        int RecBytes;        
 
         private string _Message;
 
@@ -51,11 +59,13 @@ namespace FuncionSerClie
                             Int32 ReadBytes = stream.Read(bytes, 0, bytes.Length);
                             _Message = System.Text.Encoding.ASCII.GetString(bytes, 0, ReadBytes);
                         }
-                        else
-                        {
+                        else {
 
-                            receZip();
+                            receZip(client,);
                         }
+                       
+                        
+
                     }
                 }
                 catch (Exception ex)
@@ -71,9 +81,21 @@ namespace FuncionSerClie
                 }
             }
         }
-        public void receZip()
+        public void receZip(TcpClient client)
         {
-
+            //borrarArchivos();
+            string SaveFileName = Application.StartupPath + @"\Fitxers\Dessifra\PACS.zip";
+            int totalrecbytes = 0;
+            FileStream Fs = new FileStream(SaveFileName, FileMode.OpenOrCreate, FileAccess.Write);
+            if (Fs.CanWrite)
+            {
+                while ((RecBytes = netstream.Read(RecData, 0, RecData.Length)) > 0)
+                {
+                    Fs.Write(RecData, 0, RecBytes);
+                    totalrecbytes += RecBytes;
+                    Fs.Flush();
+                }
+            }
         }
     }
 }
