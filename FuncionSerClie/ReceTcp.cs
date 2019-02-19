@@ -26,7 +26,7 @@ namespace FuncionSerClie
         }
 
 
-        public void connecTcpPort(int port)
+        public void connecTcpPort(int port,string path)
         {
             TcpListener Listener = null;
             try
@@ -61,7 +61,7 @@ namespace FuncionSerClie
                         }
                         else {
 
-                            receZip(client, stream);
+                            receZip(client, stream,path);
                         }
                        
                         
@@ -81,12 +81,11 @@ namespace FuncionSerClie
                 }
             }
         }
-        public void receZip(TcpClient client, NetworkStream netstream)
+        public void receZip(TcpClient client, NetworkStream netstream,string path)
         {
             //borrarArchivos();
-            string SaveFileName = Application.StartupPath + @"\Fitxers\Dessifra\PACS.zip";
             int totalrecbytes = 0;
-            FileStream Fs = new FileStream(SaveFileName, FileMode.OpenOrCreate, FileAccess.Write);
+            FileStream Fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);
             if (Fs.CanWrite)
             {
                 while ((RecBytes = netstream.Read(RecData, 0, RecData.Length)) > 0)
