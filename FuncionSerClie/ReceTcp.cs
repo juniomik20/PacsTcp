@@ -59,13 +59,11 @@ namespace FuncionSerClie
                             Int32 ReadBytes = stream.Read(bytes, 0, bytes.Length);
                             _Message = System.Text.Encoding.ASCII.GetString(bytes, 0, ReadBytes);
                         }
-                        else {
+                        else if(port == 5000)
+                        {
 
                             receZip(client, stream,path);
                         }
-                       
-                        
-
                     }
                 }
                 catch (Exception ex)
