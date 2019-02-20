@@ -35,6 +35,8 @@ namespace GenerarFitxers
             return lletresRandom;
         }
         public void crearFitxers() {
+            borrarArchivos();
+
             String[] lletresRandom = new String[16000000];
             for (int i = 1; i< 5; i++) {
                lletresRandom = crearLletres(i);

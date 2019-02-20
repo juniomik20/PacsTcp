@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\DLL\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -84,9 +84,21 @@
       <Project>{30bebf72-6961-48ee-8a66-72cc42ab16d6}</Project>
       <Name>ConnectionClass</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DesgenerarFitxers\DesgenerarFitxers.csproj">
+      <Project>{1b996218-2ee4-4eaa-bed0-00f00f48510c}</Project>
+      <Name>DesgenerarFitxers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FuncionSerClie\FuncionSerClie.csproj">
       <Project>{937071e0-d899-47ec-af30-e3dfc99765f2}</Project>
       <Name>FuncionSerClie</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TimerRebel\TimerRebel.csproj">
+      <Project>{738a4f3f-5d5f-4f10-ba75-649108e86f5e}</Project>
+      <Name>TimerRebel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZipCompres\Proyecto2Main.csproj">
+      <Project>{acdcd781-348d-4a73-ba16-b6f48ba4d08d}</Project>
+      <Name>Proyecto2Main</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

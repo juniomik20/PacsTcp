@@ -82,7 +82,7 @@ namespace FuncionSerClie
                 }
             }
         }
-        public void receZip(TcpClient client, NetworkStream netstream,string path)
+        private void receZip(TcpClient client, NetworkStream netstream,string path)
         {
             //borrarArchivos();
             int totalrecbytes = 0;

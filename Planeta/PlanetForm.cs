@@ -15,6 +15,10 @@ namespace Planeta
         string path = Application.StartupPath;
         FuncionSerClie.ReceTcp receTcp = new FuncionSerClie.ReceTcp();
         FuncionSerClie.SendTcp sendTcp = new FuncionSerClie.SendTcp();
+        GenerarFitxers.FrmXifrasio xifrasio = new GenerarFitxers.FrmXifrasio();
+        TimerRebel.CuentaAtras cuentaAtras = new TimerRebel.CuentaAtras();
+        Proyecto2Main.Proyecto2Main zipCompres = new Proyecto2Main.Proyecto2Main();
+
         
 
         public PlanetForm()
@@ -24,34 +28,57 @@ namespace Planeta
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            path = Application.StartupPath+ @"\hola.txt";
 
+            addLog("Planet: Iniciando el Servidor...");
+            path = Application.StartupPath+ @"\";
+
+
+            Thread generarFitchersTheard= new Thread(xifrasio.crearFitxers);
+            
+
+            Thread generarZipTheard = new Thread(zipCompres.Comprimir);
+          
 
             Thread serverMensajeThread = new Thread(() => receTcp.connecTcpPort(8733, path));
             serverMensajeThread.SetApartmentState(ApartmentState.STA);
             Thread serverFilesThread = new Thread(() => receTcp.connecTcpPort(5000, path));
             serverFilesThread.SetApartmentState(ApartmentState.STA);
 
+
+            generarFitchersTheard.Start();
+            generarFitchersTheard.Join();
+            addLog("Planet: Ficheros Generados...");
+
+            generarZipTheard.Start();
+            generarZipTheard.Join();
+            addLog("Planet: Zip Generado...");
+
             serverMensajeThread.Start();
-
+            serverFilesThread.Start(); 
             
-            
-            serverFilesThread.Start();
-
         }
 
 
-        public void planet()
+        void planetaFunc() {
+          
+         
+                    addLog(receTcp.Message);
+                
+
+
+
+        }
+
+        public void addLog(string message)
         {
-    
-
-
-
+            logBoxPlanet.AppendText(DateTime.Now.ToString("HH:mm: ") + message + "\n");
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-             label1.Text = receTcp.Message;
+            planetaFunc();
+
+
         }
     }
 
