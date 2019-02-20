@@ -53,7 +53,6 @@ namespace NaveEspacial
             ClientThread.SetApartmentState(ApartmentState.STA);
             ClientThread.Start();
 
-
         }
     }
 }
