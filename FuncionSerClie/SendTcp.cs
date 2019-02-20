@@ -20,7 +20,7 @@ namespace FuncionSerClie
                     data = System.Text.Encoding.ASCII.GetBytes(mensajeOrPath);
                     stream.Write(data, 0, data.Length);
                 }
-                else
+                else if(port==5000)
                 {
                     sendZip(mensajeOrPath, stream);
                 }
@@ -32,7 +32,7 @@ namespace FuncionSerClie
                 Console.WriteLine(e.Message);
             }
         }
-        public void sendZip(string path, NetworkStream netstream)
+        private void sendZip(string path, NetworkStream netstream)
         {
             byte[] SendingBuffer = null;
             byte[] RecData = new byte[BufferSize];

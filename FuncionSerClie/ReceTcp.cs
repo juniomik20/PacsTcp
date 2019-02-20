@@ -95,8 +95,10 @@ namespace FuncionSerClie
                     totalrecbytes += RecBytes;
                     Fs.Flush();
                 }
+             netstream.Close();
+            Fs.Close();
             }
-            netstream.Close();
+           
         }
     }
 }

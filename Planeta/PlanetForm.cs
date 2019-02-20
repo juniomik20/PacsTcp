@@ -14,6 +14,8 @@ namespace Planeta
     {
         string path = Application.StartupPath;
         FuncionSerClie.ReceTcp receTcp = new FuncionSerClie.ReceTcp();
+        FuncionSerClie.SendTcp sendTcp = new FuncionSerClie.SendTcp();
+
         public PlanetForm()
         {
             InitializeComponent();
@@ -21,12 +23,14 @@ namespace Planeta
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Thread serverMensajeThread = new Thread(() => receTcp.connecTcpPort(8733,path));
+            Thread serverMensajeThread = new Thread(() => receTcp.connecTcpPort(8733, path));
             serverMensajeThread.SetApartmentState(ApartmentState.STA);
             serverMensajeThread.Start();
-            //Thread serverMensaThread = new Thread(planet);
-            //serverMensaThread.SetApartmentState(ApartmentState.STA);
-            //serverMensaThread.Start();
+
+            path = Application.StartupPath+ @"\hola.txt";
+            Thread serverFilesThread = new Thread(() => sendTcp.sendMessage(path,"172.17.20.204",5000));
+            serverFilesThread.SetApartmentState(ApartmentState.STA);
+            serverFilesThread.Start();
 
         }
 

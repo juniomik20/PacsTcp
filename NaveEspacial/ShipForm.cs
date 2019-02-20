@@ -14,9 +14,8 @@ namespace NaveEspacial
     {
         FuncionSerClie.SendTcp sendTcp = new FuncionSerClie.SendTcp();
         FuncionSerClie.ReceTcp receTcp = new FuncionSerClie.ReceTcp();
-
         ConnectionClass.ConnectBDD connectBDD = new ConnectionClass.ConnectBDD();
-
+        string path;
         public ShipForm()
         {
             InitializeComponent();
@@ -49,9 +48,12 @@ namespace NaveEspacial
 
         private void ShipForm_Load(object sender, EventArgs e)
         {
-            Thread serverMensajeThread = new Thread(() => receTcp.connecTcpPort(8733,));
-            serverMensajeThread.SetApartmentState(ApartmentState.STA);
-            serverMensajeThread.Start();
+            path = Application.StartupPath+@"\Hola.txt";
+            Thread ClientThread = new Thread(() => receTcp.connecTcpPort(5000,path));
+            ClientThread.SetApartmentState(ApartmentState.STA);
+            ClientThread.Start();
+
+
         }
     }
 }

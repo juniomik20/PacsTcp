@@ -80,6 +80,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ConnectionClass\ConnectionClass.csproj">
+      <Project>{30bebf72-6961-48ee-8a66-72cc42ab16d6}</Project>
+      <Name>ConnectionClass</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FuncionSerClie\FuncionSerClie.csproj">
       <Project>{937071e0-d899-47ec-af30-e3dfc99765f2}</Project>
       <Name>FuncionSerClie</Name>
