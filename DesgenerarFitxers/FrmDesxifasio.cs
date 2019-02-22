@@ -17,7 +17,6 @@ namespace DesgenerarFitxers
         }
         public  void crearFitxers()
         {
-            borrarArchivos();
             string rutaMirallesTonto = Application.StartupPath + @"\\Fitxers\\Descifrar\\PacsSol.txt";
             String[] Codinumero = new String[1000000];
             for (int i = 1; i < 5; i++)
@@ -25,12 +24,9 @@ namespace DesgenerarFitxers
                 DesxifrarNumLletra(i, Codinumero);
             }
             concatArxius(rutaMirallesTonto);
-
-            for (int z = 1; z < 5; z++)
-            {
-                File.Delete(Application.StartupPath + @"\\Fitxers\\Descifrar\\PACS" + z + ".txt");
-                File.Delete(Application.StartupPath + @"\\Fitxers\\Descifrar\\HUILALIEM" + z + ".txt");
-            }
+            
+            
+            borrarArchivos();
         }
         public string[] CodiLletra()
         {
@@ -98,12 +94,12 @@ namespace DesgenerarFitxers
         }
         public void borrarArchivos()
         {
-            string[] txtList = Directory.GetFiles(sourceDir, "*.txt");
+            //string[] txtList = Directory.GetFiles(sourceDir, "*.txt");
 
-            foreach (string f in txtList)
-            {
-                File.Delete(f);
-            }
+            //foreach (string f in txtList)
+            //{
+            //    File.Delete(f);
+            //}
             string[] txtZip = Directory.GetFiles(sourceDir, "*.zip");
 
             foreach (string f in txtZip)
@@ -121,6 +117,11 @@ namespace DesgenerarFitxers
             string A4 = File.ReadAllText(Application.StartupPath + @"\\Fitxers\\Descifrar\\HUILALIEM4.txt");
 
             File.WriteAllText(ruta, A1 + A2 + A3 + A4);
+            for (int z = 1; z < 5; z++)
+            {
+                File.Delete(Application.StartupPath + @"\\Fitxers\\Descifrar\\PACS" + z + ".txt");
+                File.Delete(Application.StartupPath + @"\\Fitxers\\Descifrar\\HUILALIEM" + z + ".txt");
+            }
         }
         
     }

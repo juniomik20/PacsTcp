@@ -15,13 +15,17 @@ namespace NaveEspacial
         FuncionClass.SendTcp sendTcp = new FuncionClass.SendTcp();
         FuncionClass.ReceTcp receTcp = new FuncionClass.ReceTcp();
         ConnectionClass.ConnectBDD connectBDD = new ConnectionClass.ConnectBDD();
-        Proyecto2Main.Proyecto2Main unZip = new Proyecto2Main.Proyecto2Main();
+        Proyecto2Main.Proyecto2Main unZipClass = new Proyecto2Main.Proyecto2Main();
         DesgenerarFitxers.FrmDesxifasio desxifasio = new DesgenerarFitxers.FrmDesxifasio();
         Thread ServerShipMessage;
         Thread ServerShipFiles;
         Thread descifrarTheard;
         Thread shipThread;
+        Thread unZipThread;
+
+
         string pathUnzip = Application.StartupPath + @"\Fitxers\Descifrar\PACS.zip";
+        string pathSend = Application.StartupPath + @"\Fitxers\Descifrar\PacsSol.txt";
         public ShipForm()
         {
             InitializeComponent();
@@ -61,6 +65,8 @@ namespace NaveEspacial
             ServerShipFiles = new Thread(() => receTcp.connecTcpPort(5000, pathUnzip));
             ServerShipFiles.SetApartmentState(ApartmentState.STA);
             shipThread = new Thread(ship);
+            unZipThread = new Thread(unZip);
+
             descifrarTheard = new Thread(descifrarArxius);
             ServerShipFiles.Start();
             shipThread.Start();
@@ -82,24 +88,43 @@ namespace NaveEspacial
                     }
                     if (receTcp.varMensajeClient.Contains("Zip"))
                     {
-                        descifrarTheard.Start();
+                        unZipThread.Start();
                     }
                     receTcp.messageReady = false;
                 }
             }
         }
-
+        void unZip() {
+            unZipClass.Descomprimir();
+            descifrarTheard.Start();
+        }
 
         void descifrarArxius()
         {
-
-            unZip.Descomprimir();
+            unZipThread.Join();
+            desxifasio.crearFitxers();
+            if (logBoxShip.InvokeRequired)
+            {
+                logBoxShip.Invoke((MethodInvoker)delegate { addLog("Planet: archivos descomprimidos"); });
+            }
+            else
+            {
+                addLog("Planet: archivos descomprimidos");
+            }
+            enviarArxiu();
         }
 
         void enviarArxiu() {
             descifrarTheard.Join();
-
-
+            sendTcp.sendMessage(pathSend, "172.17.20.157", 5000);
+            if (logBoxShip.InvokeRequired)
+            {
+                logBoxShip.Invoke((MethodInvoker)delegate { addLog("Planet: archivo enviado"); });
+            }
+            else
+            {
+                addLog("Planet: archivo enviado");
+            }
         }
 
         public void addLog(string message)

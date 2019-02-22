@@ -19,8 +19,8 @@ namespace Proyecto2Main
         #region ZIP y UNZIP     
         string _PathToCompress = Application.StartupPath + @"\\Fitxers\\Cifrar\\";
         string _PathCompressedArchive = Application.StartupPath + @"\\Fitxers\\PACS.zip";
-        string _PathDescompressedArchive = Application.StartupPath + @"\\Fitxers\\Dessifra\\PACS.zip";
-        string _PathToDecompress = Application.StartupPath + @"\\Fitxers\\Dessifra";
+        string _PathDescompressedArchive = Application.StartupPath + @"\\Fitxers\\Descifrar\\PACS.zip";
+        string _PathToDecompress = Application.StartupPath + @"\\Fitxers\\Descifrar";
         FileInfo _FileInfo;
         #endregion
 
@@ -95,11 +95,11 @@ namespace Proyecto2Main
 
             try
             {
+                borrar();
                 ZipFile.ExtractToDirectory(_PathDescompressedArchive, _PathToDecompress);
             }
             catch (IOException)
             {
-                
                 ZipFile.ExtractToDirectory(_PathDescompressedArchive, _PathToDecompress);
             }
             catch (UnauthorizedAccessException)
@@ -107,6 +107,15 @@ namespace Proyecto2Main
                 MessageBox.Show("No tienes acceso a ese directorio");
             }
 
+        }
+        void borrar() {
+
+            string[] txtList = Directory.GetFiles(_PathToDecompress, "*.txt");
+
+            foreach (string f in txtList)
+            {
+                File.Delete(f);
+            }
         }
 
         #region Metodo Chungo
