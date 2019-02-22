@@ -13,14 +13,15 @@ namespace Planeta
     public partial class PlanetForm : Form
     {
         string path = Application.StartupPath;
-        FuncionSerClie.ReceTcp receTcp = new FuncionSerClie.ReceTcp();
-        FuncionSerClie.SendTcp sendTcp = new FuncionSerClie.SendTcp();
+        FuncionClass.ReceTcp receTcp = new FuncionClass.ReceTcp();
+        FuncionClass.SendTcp sendTcp = new FuncionClass.SendTcp();
         GenerarFitxers.FrmXifrasio xifrasio = new GenerarFitxers.FrmXifrasio();
         TimerRebel.CuentaAtras cuentaAtras = new TimerRebel.CuentaAtras();
         Proyecto2Main.Proyecto2Main zipCompres = new Proyecto2Main.Proyecto2Main();
-
-        
-
+        Thread generarFitchersTheard;
+        Thread generarZipTheard;
+        Thread serverMensajeThread;
+        Thread serverFilesThread;
         public PlanetForm()
         {
             InitializeComponent();
@@ -30,44 +31,40 @@ namespace Planeta
         {
 
             addLog("Planet: Iniciando el Servidor...");
-            path = Application.StartupPath+ @"\";
+            path = Application.StartupPath + @"\";
 
 
-            Thread generarFitchersTheard= new Thread(xifrasio.crearFitxers);
-            
+            generarFitchersTheard = new Thread(generarFicheros);
+            generarZipTheard = new Thread(generarZip);
 
-            Thread generarZipTheard = new Thread(zipCompres.Comprimir);
-          
-
-            Thread serverMensajeThread = new Thread(() => receTcp.connecTcpPort(8733, path));
+            serverMensajeThread = new Thread(() => receTcp.connecTcpPort(8733, path));
             serverMensajeThread.SetApartmentState(ApartmentState.STA);
-            Thread serverFilesThread = new Thread(() => receTcp.connecTcpPort(5000, path));
+            serverFilesThread = new Thread(() => receTcp.connecTcpPort(5000, path));
             serverFilesThread.SetApartmentState(ApartmentState.STA);
 
 
             generarFitchersTheard.Start();
-            generarFitchersTheard.Join();
-            addLog("Planet: Ficheros Generados...");
-
-            generarZipTheard.Start();
-            generarZipTheard.Join();
-            addLog("Planet: Zip Generado...");
-
             serverMensajeThread.Start();
-            serverFilesThread.Start(); 
-            
+            serverFilesThread.Start();
+
+        }
+
+
+
+        void generarFicheros()
+        {
+           // xifrasio.crearFitxers();
+        }
+
+        void generarZip()
+        {
+           //// generarFitchersTheard.Join();
+           // generarZipTheard.Start();
+            generarZipTheard.Join();
+            zipCompres.Comprimir();
         }
 
 
-        void planetaFunc() {
-          
-         
-                    addLog(receTcp.Message);
-                
-
-
-
-        }
 
         public void addLog(string message)
         {
@@ -76,12 +73,29 @@ namespace Planeta
 
         private void button1_Click(object sender, EventArgs e)
         {
-            planetaFunc();
+            Thread planetThread = new Thread(planet);
+            planetThread.Start();
+        }
+        void planet()
+        {
 
+           
+                if (logBoxPlanet.InvokeRequired)
+                {
+                    logBoxPlanet.Invoke(new MethodInvoker(() => {addLog(receTcp.Message);}));
+                }
+                else
+                {
+                    addLog(receTcp.Message);
+
+                }
+
+
+            }
 
         }
     }
 
 
-}
+
 

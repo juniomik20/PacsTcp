@@ -88,9 +88,9 @@
       <Project>{1b996218-2ee4-4eaa-bed0-00f00f48510c}</Project>
       <Name>DesgenerarFitxers</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FuncionSerClie\FuncionSerClie.csproj">
-      <Project>{937071e0-d899-47ec-af30-e3dfc99765f2}</Project>
-      <Name>FuncionSerClie</Name>
+    <ProjectReference Include="..\FuncionClass\FuncionClass.csproj">
+      <Project>{6d5f6c30-ffc0-4359-bad3-3841d4d0f92f}</Project>
+      <Name>FuncionClass</Name>
     </ProjectReference>
     <ProjectReference Include="..\TimerRebel\TimerRebel.csproj">
       <Project>{738a4f3f-5d5f-4f10-ba75-649108e86f5e}</Project>

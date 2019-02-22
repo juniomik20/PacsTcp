@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.28010.2041
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NaveEspacial", "NaveEspacial\NaveEspacial.csproj", "{D0B4802F-023E-48A5-8548-74404A4AB481}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuncionSerClie", "FuncionSerClie\FuncionSerClie.csproj", "{937071E0-D899-47EC-AF30-E3DFC99765F2}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Planeta", "Planeta\Planeta.csproj", "{489696DD-9487-440E-9661-78B3B264EC15}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectionClass", "ConnectionClass\ConnectionClass.csproj", "{30BEBF72-6961-48EE-8A66-72CC42AB16D6}"
@@ -19,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesgenerarFitxers", "Desgen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenerarFitxers", "GenerarFitxers\GenerarFitxers.csproj", "{985929C6-EF58-4CF2-8224-28B5FEB7D7BC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuncionClass", "FuncionClass\FuncionClass.csproj", "{6D5F6C30-FFC0-4359-BAD3-3841D4D0F92F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +29,6 @@ Global
 		{D0B4802F-023E-48A5-8548-74404A4AB481}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0B4802F-023E-48A5-8548-74404A4AB481}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0B4802F-023E-48A5-8548-74404A4AB481}.Release|Any CPU.Build.0 = Release|Any CPU
-		{937071E0-D899-47EC-AF30-E3DFC99765F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{937071E0-D899-47EC-AF30-E3DFC99765F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{937071E0-D899-47EC-AF30-E3DFC99765F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{937071E0-D899-47EC-AF30-E3DFC99765F2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{489696DD-9487-440E-9661-78B3B264EC15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{489696DD-9487-440E-9661-78B3B264EC15}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{489696DD-9487-440E-9661-78B3B264EC15}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -57,6 +53,10 @@ Global
 		{985929C6-EF58-4CF2-8224-28B5FEB7D7BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{985929C6-EF58-4CF2-8224-28B5FEB7D7BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{985929C6-EF58-4CF2-8224-28B5FEB7D7BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D5F6C30-FFC0-4359-BAD3-3841D4D0F92F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D5F6C30-FFC0-4359-BAD3-3841D4D0F92F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D5F6C30-FFC0-4359-BAD3-3841D4D0F92F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D5F6C30-FFC0-4359-BAD3-3841D4D0F92F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

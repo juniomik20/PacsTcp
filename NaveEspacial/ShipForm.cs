@@ -12,8 +12,8 @@ namespace NaveEspacial
 {
     public partial class ShipForm : Form
     {
-        FuncionSerClie.SendTcp sendTcp = new FuncionSerClie.SendTcp();
-        FuncionSerClie.ReceTcp receTcp = new FuncionSerClie.ReceTcp();
+        FuncionClass.SendTcp sendTcp = new FuncionClass.SendTcp();
+        FuncionClass.ReceTcp receTcp = new FuncionClass.ReceTcp();
         ConnectionClass.ConnectBDD connectBDD = new ConnectionClass.ConnectBDD();
         string path;
         public ShipForm()
@@ -23,7 +23,8 @@ namespace NaveEspacial
 
         private void ConnectButton_Click(object sender, EventArgs e)
         {
-            sendTcp.sendMessage(identifiMessage(), "172.17.20.204", 8733);
+            //sendTcp.sendMessage(identifiMessage(), "172.17.20.204", 8733);
+            sendTcp.sendMessage("hola", "192.168.1.24", 8733);
 
         }
 
