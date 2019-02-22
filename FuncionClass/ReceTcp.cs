@@ -41,8 +41,8 @@ namespace FuncionClass
             }
 
 
-            
-            while (!clientTcp)
+
+            while (true)
             {
                 TcpClient client = null;
                 NetworkStream stream = null;
@@ -54,22 +54,27 @@ namespace FuncionClass
                         client = Listener.AcceptTcpClient();
                         byte[] bytes = new byte[1024];
                         stream = client.GetStream();
-                        if (port == 8733)
+                        if (stream != null)
                         {
-                            string cadena;
-                            Int32 ReadBytes = stream.Read(bytes, 0, bytes.Length);
-                            
-                            cadena = System.Text.Encoding.ASCII.GetString(bytes, 0, ReadBytes);
-                            varMensajeClient = cadena;
-                            messageReady = true;
-                        }
-                        else if (port == 5000)
-                        {
-                            receZip(client, stream, path);
+                            if (port == 8733)
+                            {
+                                string cadena;
+                                Int32 ReadBytes = stream.Read(bytes, 0, bytes.Length);
+
+                                cadena = System.Text.Encoding.ASCII.GetString(bytes, 0, ReadBytes);
+                                varMensajeClient = cadena;
+                                messageReady = true;
+                            }
+                            else if (port == 5000)
+                            {
+                                receZip(client, stream, path);
+                            }
                         }
 
+
+
                     }
-                    
+
                     stream.Close();
                     client.Close();
 

@@ -23,7 +23,7 @@ namespace NaveEspacial
 
         private void ConnectButton_Click(object sender, EventArgs e)
         {
-            sendTcp.sendMessage(identifiMessage(), "172.17.20.204", 8733);
+            sendTcp.sendMessage(identifiMessage(), "172.17.20.157", 8733);
         }
 
 
@@ -46,28 +46,32 @@ namespace NaveEspacial
 
         private void ShipForm_Load(object sender, EventArgs e)
         {
-            //path = Application.StartupPath+@"\Hola.txt";
-            //Thread ServerShipMessage = new Thread(() => receTcp.connecTcpPort(8733, path));
-            //ServerShipMessage.SetApartmentState(ApartmentState.STA);
-            //ServerShipMessage.Start();
-            //Thread ServerShipFiles = new Thread(() => receTcp.connecTcpPort(5000, path));
-            //ServerShipFiles.SetApartmentState(ApartmentState.STA);
-            //ServerShipFiles.Start();
+            path = Application.StartupPath + @"\Hola.txt";
+            Thread ServerShipMessage = new Thread(() => receTcp.connecTcpPort(8733, path));
+            ServerShipMessage.SetApartmentState(ApartmentState.STA);
+            ServerShipMessage.Start();
+            Thread ServerShipFiles = new Thread(() => receTcp.connecTcpPort(5000, path));
+            ServerShipFiles.SetApartmentState(ApartmentState.STA);
+            ServerShipFiles.Start();
         }
+
         void ship() {
 
-            while (true)
-            {
+           
             if (receTcp.messageReady=true)
             {
                     label1.Text = receTcp.varMensajeClient;
                     receTcp.messageReady = false;
                     receTcp.clientTcp = false;
                 }
-            }
+            
            
 
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ship();
+        }
     }
 }
