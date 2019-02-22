@@ -43,11 +43,12 @@ namespace Planeta
             serverMensajeThread.SetApartmentState(ApartmentState.STA);
             serverFilesThread = new Thread(() => receTcp.connecTcpPort(5000, path));
             serverFilesThread.SetApartmentState(ApartmentState.STA);
+            Thread planetThread = new Thread(planet);
 
 
             serverMensajeThread.Start();
             serverFilesThread.Start();
-
+            planetThread.Start();
         }
 
 
@@ -95,7 +96,8 @@ namespace Planeta
         }
         void planet()
         {
-
+            while (true)
+            {
             if (receTcp.messageReady==true)
             {
                 addLog(receTcp.varMensajeClient);
@@ -104,7 +106,7 @@ namespace Planeta
                 if (comprobarEntrada(receTcp.varMensajeClient))
                 {
                     addLog("Entrada confirmada");
-                    //sendTcp.sendMessage("Bienvenido alido", "172.17.20.204", 8733);
+                    sendTcp.sendMessage("Bienvenido alido", "172.17.20.204", 8733);
                     //sendTcp.sendMessage(pathZip, "172.17.20.204", 5000);
 
                 }
@@ -114,6 +116,7 @@ namespace Planeta
 
                 }
 
+            }
             }
         }
         bool comprobarEntrada(string message) {
