@@ -62,6 +62,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="ShipForm.resx">
       <DependentUpon>ShipForm.cs</DependentUpon>
@@ -100,6 +101,9 @@
       <Project>{acdcd781-348d-4a73-ba16-b6f48ba4d08d}</Project>
       <Name>Proyecto2Main</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\screenshot_0050.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

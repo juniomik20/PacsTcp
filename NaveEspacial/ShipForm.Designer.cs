@@ -29,60 +29,58 @@
         private void InitializeComponent()
         {
             this.ConnectButton = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.logBoxShip = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // ConnectButton
             // 
-            this.ConnectButton.Location = new System.Drawing.Point(130, 259);
+            this.ConnectButton.BackColor = System.Drawing.Color.Transparent;
+            this.ConnectButton.FlatAppearance.BorderSize = 0;
+            this.ConnectButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.ConnectButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.ConnectButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ConnectButton.Location = new System.Drawing.Point(233, 310);
             this.ConnectButton.Name = "ConnectButton";
-            this.ConnectButton.Size = new System.Drawing.Size(75, 23);
+            this.ConnectButton.Size = new System.Drawing.Size(54, 52);
             this.ConnectButton.TabIndex = 0;
-            this.ConnectButton.Text = "connect";
-            this.ConnectButton.UseVisualStyleBackColor = true;
+            this.ConnectButton.UseVisualStyleBackColor = false;
             this.ConnectButton.Click += new System.EventHandler(this.ConnectButton_Click);
             // 
-            // label1
+            // logBoxShip
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(373, 176);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "label1";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(363, 214);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "connect";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.logBoxShip.BackColor = System.Drawing.SystemColors.MenuText;
+            this.logBoxShip.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.logBoxShip.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F);
+            this.logBoxShip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.logBoxShip.Location = new System.Drawing.Point(1, 183);
+            this.logBoxShip.Name = "logBoxShip";
+            this.logBoxShip.ReadOnly = true;
+            this.logBoxShip.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.logBoxShip.Size = new System.Drawing.Size(158, 82);
+            this.logBoxShip.TabIndex = 1;
+            this.logBoxShip.Text = "";
             // 
             // ShipForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::NaveEspacial.Properties.Resources.screenshot_0050;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.logBoxShip);
             this.Controls.Add(this.ConnectButton);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ShipForm";
             this.Text = "shipForm";
             this.Load += new System.EventHandler(this.ShipForm_Load);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Button ConnectButton;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.RichTextBox logBoxShip;
     }
 }
 

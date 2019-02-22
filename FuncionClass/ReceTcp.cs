@@ -14,8 +14,7 @@ namespace FuncionClass
         private const int BufferSize = 2048;
         byte[] RecData = new byte[BufferSize];
         int RecBytes;
-        public bool messageReady;
-        public bool clientTcp = false;
+        public bool messageReady=false;
         private string _Message;
 
         public string varMensajeClient
@@ -41,16 +40,15 @@ namespace FuncionClass
             }
 
 
-
             while (true)
             {
+                messageReady = false;
                 TcpClient client = null;
                 NetworkStream stream = null;
                 try
                 {
                     if (Listener.Pending())
                     {
-                        clientTcp = true;
                         client = Listener.AcceptTcpClient();
                         byte[] bytes = new byte[1024];
                         stream = client.GetStream();

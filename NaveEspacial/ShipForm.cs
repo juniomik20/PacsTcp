@@ -15,7 +15,13 @@ namespace NaveEspacial
         FuncionClass.SendTcp sendTcp = new FuncionClass.SendTcp();
         FuncionClass.ReceTcp receTcp = new FuncionClass.ReceTcp();
         ConnectionClass.ConnectBDD connectBDD = new ConnectionClass.ConnectBDD();
-        string path;
+        Proyecto2Main.Proyecto2Main unZip = new Proyecto2Main.Proyecto2Main();
+        DesgenerarFitxers.FrmDesxifasio desxifasio = new DesgenerarFitxers.FrmDesxifasio();
+        Thread ServerShipMessage;
+        Thread ServerShipFiles;
+        Thread descifrarTheard;
+        Thread shipThread;
+        string pathUnzip = Application.StartupPath + @"\Fitxers\Descifrar\PACS.zip";
         public ShipForm()
         {
             InitializeComponent();
@@ -23,7 +29,9 @@ namespace NaveEspacial
 
         private void ConnectButton_Click(object sender, EventArgs e)
         {
+
             sendTcp.sendMessage(identifiMessage(), "172.17.20.157", 8733);
+            addLog("Ship: Connect to planet");
         }
 
 
@@ -46,32 +54,59 @@ namespace NaveEspacial
 
         private void ShipForm_Load(object sender, EventArgs e)
         {
-            path = Application.StartupPath + @"\Hola.txt";
-            Thread ServerShipMessage = new Thread(() => receTcp.connecTcpPort(8733, path));
+
+            ServerShipMessage = new Thread(() => receTcp.connecTcpPort(8733, pathUnzip));
             ServerShipMessage.SetApartmentState(ApartmentState.STA);
             ServerShipMessage.Start();
-            Thread ServerShipFiles = new Thread(() => receTcp.connecTcpPort(5000, path));
+            ServerShipFiles = new Thread(() => receTcp.connecTcpPort(5000, pathUnzip));
             ServerShipFiles.SetApartmentState(ApartmentState.STA);
+            shipThread = new Thread(ship);
+            descifrarTheard = new Thread(descifrarArxius);
             ServerShipFiles.Start();
+            shipThread.Start();
         }
 
-        void ship() {
-
-           
-            if (receTcp.messageReady=true)
-            {
-                    label1.Text = receTcp.varMensajeClient;
-                    receTcp.messageReady = false;
-                    receTcp.clientTcp = false;
-                }
-            
-           
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
+        void ship()
         {
-            ship();
+            while (true)
+            {
+                if (receTcp.messageReady == true)
+                {
+                    if (logBoxShip.InvokeRequired)
+                    {
+                        logBoxShip.Invoke((MethodInvoker)delegate { addLog("Planet: " + receTcp.varMensajeClient); });
+                    }
+                    else
+                    {
+                        addLog("Planet: " + receTcp.varMensajeClient);
+                    }
+                    if (receTcp.varMensajeClient.Contains("Zip"))
+                    {
+                        descifrarTheard.Start();
+                    }
+                    receTcp.messageReady = false;
+                }
+            }
         }
+
+
+        void descifrarArxius()
+        {
+
+            unZip.Descomprimir();
+        }
+
+        void enviarArxiu() {
+            descifrarTheard.Join();
+
+
+        }
+
+        public void addLog(string message)
+        {
+            logBoxShip.AppendText(DateTime.Now.ToString("HH:mm: ") + message + "\n");
+        }
+
+
     }
 }

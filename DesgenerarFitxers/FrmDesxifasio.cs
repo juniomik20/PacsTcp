@@ -10,15 +10,15 @@ namespace DesgenerarFitxers
     public partial class FrmDesxifasio : Form
     {
 
-        string sourceDir = Application.StartupPath + @"\\Fitxers\\Dessifra\\";
+        string sourceDir = Application.StartupPath + @"\\Fitxers\\Descifrar\\";
         public FrmDesxifasio()
         {
             InitializeComponent();
         }
         public  void crearFitxers()
         {
-            //borrarArchivos();
-            string rutaMirallesTonto = Application.StartupPath + @"\\Fitxers\\Dessifra\\PacsSol.txt";
+            borrarArchivos();
+            string rutaMirallesTonto = Application.StartupPath + @"\\Fitxers\\Descifrar\\PacsSol.txt";
             String[] Codinumero = new String[1000000];
             for (int i = 1; i < 5; i++)
             {
@@ -28,8 +28,8 @@ namespace DesgenerarFitxers
 
             for (int z = 1; z < 5; z++)
             {
-                File.Delete(Application.StartupPath + @"\\Fitxers\\Dessifra\\PACS" + z + ".txt");
-                File.Delete(Application.StartupPath + @"\\Fitxers\\Dessifra\\HUILALIEM" + z + ".txt");
+                File.Delete(Application.StartupPath + @"\\Fitxers\\Descifrar\\PACS" + z + ".txt");
+                File.Delete(Application.StartupPath + @"\\Fitxers\\Descifrar\\HUILALIEM" + z + ".txt");
             }
         }
         public string[] CodiLletra()
@@ -65,8 +65,8 @@ namespace DesgenerarFitxers
             numeroCodi = CodiLletra();
             String[] lletres = new String[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
 
-            string rutaFitxerDesgen = Application.StartupPath + @"\\Fitxers\\Dessifra\\PACS" + z + ".txt";
-            string rutaFitxer = Application.StartupPath + @"\\Fitxers\\Dessifra\\HUILALIEM"+z+".txt";
+            string rutaFitxerDesgen = Application.StartupPath + @"\\Fitxers\\Descifrar\\PACS" + z + ".txt";
+            string rutaFitxer = Application.StartupPath + @"\\Fitxers\\Descifrar\\HUILALIEM" + z+".txt";
            
             StreamWriter XifratNums = new StreamWriter(rutaFitxer);
 
@@ -104,14 +104,21 @@ namespace DesgenerarFitxers
             {
                 File.Delete(f);
             }
+            string[] txtZip = Directory.GetFiles(sourceDir, "*.zip");
+
+            foreach (string f in txtZip)
+            {
+                File.Delete(f);
+            }
+
 
         }
         public void concatArxius(string ruta)
         {
-            string A1 = File.ReadAllText(Application.StartupPath + @"\\Fitxers\\Dessifra\\HUILALIEM1.txt");
-            string A2 = File.ReadAllText(Application.StartupPath + @"\\Fitxers\\Dessifra\\HUILALIEM2.txt");
-            string A3 = File.ReadAllText(Application.StartupPath + @"\\Fitxers\\Dessifra\\HUILALIEM3.txt");
-            string A4 = File.ReadAllText(Application.StartupPath + @"\\Fitxers\\Dessifra\\HUILALIEM4.txt");
+            string A1 = File.ReadAllText(Application.StartupPath + @"\\Fitxers\\Descifrar\\HUILALIEM1.txt");
+            string A2 = File.ReadAllText(Application.StartupPath + @"\\Fitxers\\Descifrar\\HUILALIEM2.txt");
+            string A3 = File.ReadAllText(Application.StartupPath + @"\\Fitxers\\Descifrar\\HUILALIEM3.txt");
+            string A4 = File.ReadAllText(Application.StartupPath + @"\\Fitxers\\Descifrar\\HUILALIEM4.txt");
 
             File.WriteAllText(ruta, A1 + A2 + A3 + A4);
         }

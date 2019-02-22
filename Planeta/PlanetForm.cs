@@ -102,7 +102,6 @@ namespace Planeta
             {
                 addLog(receTcp.varMensajeClient);
                 receTcp.messageReady = false;
-                receTcp.clientTcp = false;
                 if (comprobarEntrada(receTcp.varMensajeClient))
                 {   
                         if (logBoxPlanet.InvokeRequired)
