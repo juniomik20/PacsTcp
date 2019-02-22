@@ -104,12 +104,18 @@ namespace Planeta
                 receTcp.messageReady = false;
                 receTcp.clientTcp = false;
                 if (comprobarEntrada(receTcp.varMensajeClient))
-                {
-                    addLog("Entrada confirmada");
+                {   
+                        if (logBoxPlanet.InvokeRequired)
+                        {
+                            logBoxPlanet.Invoke((MethodInvoker)delegate { addLog("Entrada confirmada"); });
+                        }
+                        else
+                        {
+                            addLog("Entrada confirmada");
+                        }
                     sendTcp.sendMessage("Bienvenido alido", "172.17.20.204", 8733);
-                    //sendTcp.sendMessage(pathZip, "172.17.20.204", 5000);
-
-                }
+                     //sendTcp.sendMessage(pathZip, "172.17.20.204", 5000);
+                    }
                 else {
 
 
