@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.ConnectButton = new System.Windows.Forms.Button();
-            this.txtmessage = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // ConnectButton
@@ -42,19 +42,21 @@
             this.ConnectButton.UseVisualStyleBackColor = true;
             this.ConnectButton.Click += new System.EventHandler(this.ConnectButton_Click);
             // 
-            // txtmessage
+            // label1
             // 
-            this.txtmessage.Location = new System.Drawing.Point(130, 223);
-            this.txtmessage.Name = "txtmessage";
-            this.txtmessage.Size = new System.Drawing.Size(100, 20);
-            this.txtmessage.TabIndex = 1;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(373, 176);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "label1";
             // 
             // ShipForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.txtmessage);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.ConnectButton);
             this.Name = "ShipForm";
             this.Text = "shipForm";
@@ -67,7 +69,7 @@
         #endregion
 
         private System.Windows.Forms.Button ConnectButton;
-        private System.Windows.Forms.TextBox txtmessage;
+        private System.Windows.Forms.Label label1;
     }
 }
 

@@ -14,10 +14,11 @@ namespace FuncionClass
         private const int BufferSize = 2048;
         byte[] RecData = new byte[BufferSize];
         int RecBytes;
-
+        public bool messageReady;
+        public bool clientTcp = false;
         private string _Message;
 
-        public string Message
+        public string varMensajeClient
         {
             get { return _Message; }
             set { _Message = value; }
@@ -40,8 +41,8 @@ namespace FuncionClass
             }
 
 
-            bool clientTcp = false;
-            while (true)
+            
+            while (!clientTcp)
             {
                 TcpClient client = null;
                 NetworkStream stream = null;
@@ -55,15 +56,20 @@ namespace FuncionClass
                         stream = client.GetStream();
                         if (port == 8733)
                         {
+                            string cadena;
                             Int32 ReadBytes = stream.Read(bytes, 0, bytes.Length);
-                            _Message = System.Text.Encoding.ASCII.GetString(bytes, 0, ReadBytes);
+                            
+                            cadena = System.Text.Encoding.ASCII.GetString(bytes, 0, ReadBytes);
+                            varMensajeClient = cadena;
+                            messageReady = true;
                         }
                         else if (port == 5000)
                         {
                             receZip(client, stream, path);
                         }
-                    }
 
+                    }
+                    
                     stream.Close();
                     client.Close();
 

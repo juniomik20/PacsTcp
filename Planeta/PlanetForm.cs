@@ -12,8 +12,10 @@ namespace Planeta
 {
     public partial class PlanetForm : Form
     {
-        string path = Application.StartupPath;
-        FuncionClass.ReceTcp receTcp = new FuncionClass.ReceTcp();
+        ConnectionClass.ConnectBDD ConnectBDD = new ConnectionClass.ConnectBDD();
+        string pathZip = Application.StartupPath+ @"\Fitxers\PACS.zip";
+        string path = Application.StartupPath + @"\Fitxers\";
+        FuncionClass.ReceTcp receTcp;
         FuncionClass.SendTcp sendTcp = new FuncionClass.SendTcp();
         GenerarFitxers.FrmXifrasio xifrasio = new GenerarFitxers.FrmXifrasio();
         TimerRebel.CuentaAtras cuentaAtras = new TimerRebel.CuentaAtras();
@@ -29,7 +31,7 @@ namespace Planeta
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            receTcp = new FuncionClass.ReceTcp();
             addLog("Planet: Iniciando el Servidor...");
             path = Application.StartupPath + @"\";
 
@@ -43,7 +45,6 @@ namespace Planeta
             serverFilesThread.SetApartmentState(ApartmentState.STA);
 
 
-            generarFitchersTheard.Start();
             serverMensajeThread.Start();
             serverFilesThread.Start();
 
@@ -53,15 +54,32 @@ namespace Planeta
 
         void generarFicheros()
         {
-           // xifrasio.crearFitxers();
+
+            xifrasio.crearFitxers();
+
+            generarZipTheard.Start();
         }
 
         void generarZip()
         {
-           //// generarFitchersTheard.Join();
-           // generarZipTheard.Start();
-            generarZipTheard.Join();
+            generarFitchersTheard.Join();
+           
+            if (logBoxPlanet.InvokeRequired)
+            {
+                logBoxPlanet.Invoke((MethodInvoker)delegate {addLog("Archivos generados"); });
+            }
+            else
+            {
+                addLog("Archivos generados");
+            }
+
+
             zipCompres.Comprimir();
+            generarZipTheard.Join();
+            generarFitchersTheard.Abort();
+            generarZipTheard.Abort();
+
+
         }
 
 
@@ -73,28 +91,49 @@ namespace Planeta
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Thread planetThread = new Thread(planet);
-            planetThread.Start();
+            planet();
         }
         void planet()
         {
 
-           
-                if (logBoxPlanet.InvokeRequired)
+            if (receTcp.messageReady==true)
+            {
+                addLog(receTcp.varMensajeClient);
+                receTcp.messageReady = false;
+                receTcp.clientTcp = false;
+                if (comprobarEntrada(receTcp.varMensajeClient))
                 {
-                    logBoxPlanet.Invoke(new MethodInvoker(() => {addLog(receTcp.Message);}));
-                }
-                else
-                {
-                    addLog(receTcp.Message);
+                    addLog("Entrada confirmada");
+                    //sendTcp.sendMessage("Bienvenido alido", "172.17.20.204", 8733);
+                    //sendTcp.sendMessage(pathZip, "172.17.20.204", 5000);
 
                 }
+                else {
 
+
+
+                }
 
             }
+        }
+        bool comprobarEntrada(string message) {
+
+            string dateTime = message.Substring(4, 4) + "-" + message.Substring(0, 2) + "-" + message.Substring(2, 2);
+            string codeShip = message.Substring(8, 8);
+            string codeDelivery = message.Substring(16, 12);
+            string query = "SELECT * FROM DeliveryData WHERE(CodeDelivery = '" + codeDelivery + "') AND(DeliveryDate = CONVERT(DATETIME, '" + dateTime + "', 102)) AND(SpaceShip = '" + codeShip + "')";
+      
+
+            return ConnectBDD.SelectExistDelivery(query);;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            generarFitchersTheard.Start();
 
         }
     }
+}
 
 
 
