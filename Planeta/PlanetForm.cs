@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using System.IO;
+using System.Security.Cryptography;
 
 namespace Planeta
 {
@@ -15,6 +17,10 @@ namespace Planeta
         ConnectionClass.ConnectBDD ConnectBDD = new ConnectionClass.ConnectBDD();
         string pathZip = Application.StartupPath + @"\Fitxers\PACS.zip";
         string path = Application.StartupPath + @"\Fitxers\";
+        string pathServer = Application.StartupPath + @"\Fitxers\PacsSolServer.txt";
+        string pathShip = Application.StartupPath + @"\Fitxers\PacsSolShip.txt";
+        string hashServerString;
+        string hashShipString;
         FuncionClass.ReceTcp receTcp = new FuncionClass.ReceTcp();
         FuncionClass.SendTcp sendTcp = new FuncionClass.SendTcp();
         GenerarFitxers.FrmXifrasio xifrasio = new GenerarFitxers.FrmXifrasio();
@@ -24,16 +30,16 @@ namespace Planeta
         Thread generarZipTheard;
         Thread serverMensajeThread;
         Thread serverFilesThread;
+
         public PlanetForm()
         {
             InitializeComponent();
         }
 
         private void Form1_Load(object sender, EventArgs e)
-        {
-        
+        {        
             addLog("Planet: Iniciando el Servidor...");
-            path = Application.StartupPath + @"\Fitxers\PacsSolShip.txt";
+            pathShip = Application.StartupPath + @"\Fitxers\PacsSolShip.txt";
 
 
             generarFitchersTheard = new Thread(generarFicheros);
@@ -41,18 +47,49 @@ namespace Planeta
 
             serverMensajeThread = new Thread(() => receTcp.connecTcpPort(8733, path));
             serverMensajeThread.SetApartmentState(ApartmentState.STA);
-            serverFilesThread = new Thread(() => receTcp.connecTcpPort(5000, path));
+            serverFilesThread = new Thread(() => receTcp.connecTcpPort(5000, pathShip));
             serverFilesThread.SetApartmentState(ApartmentState.STA);
             Thread planetThread = new Thread(planet);
-
+            Thread pacsolServerThread = new Thread(hashServer);
+            Thread pacsolShipThread = new Thread(hashShip);
 
             serverMensajeThread.Start();
             serverFilesThread.Start();
             planetThread.Start();
         }
+        void hashShip()
+        {
+            using (var md5 = MD5.Create())
+            {
+                using (var stream = File.OpenRead(pathShip))
+                {
+                    hashShipString = Encoding.Default.GetString(md5.ComputeHash(stream));
+                }
+            }
+        }
+        void hashServer()
+        {
+             
+            using (var md5 = MD5.Create())
+            {
+                using (var stream = File.OpenRead(pathServer))
+                {
+                    hashServerString = Encoding.Default.GetString(md5.ComputeHash(stream));
+                }
+            }
+        }
+        bool  compararfiles()
+        {
+            bool comparar = false;
+            if (hashServerString.Equals(hashShipString))
+            {
+                comparar = true;
+            }
+
+            return comparar;
 
 
-
+        }
         void generarFicheros()
         {
 
@@ -74,13 +111,10 @@ namespace Planeta
                 addLog("Archivos generados");
             }
 
-
             zipCompres.Comprimir();
             generarZipTheard.Join();
             generarFitchersTheard.Abort();
             generarZipTheard.Abort();
-
-
         }
 
 
@@ -89,11 +123,7 @@ namespace Planeta
         {
             logBoxPlanet.AppendText(DateTime.Now.ToString("HH:mm: ") + message + "\n");
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            planet();
-        }
+  
         void planet()
         {
             while (true)
@@ -129,7 +159,19 @@ namespace Planeta
                         {
                             addLog("Planet: Entrada confirmada");
                         }
-
+                        if (cuentaAtras1.InvokeRequired)
+                        {
+                            cuentaAtras1.Invoke((MethodInvoker)delegate
+                            {
+                                cuentaAtras1.onTimer();
+                                cuentaAtras1.Visible = true;
+                            });
+                        }
+                        else
+                        {
+                            cuentaAtras1.onTimer();
+                            cuentaAtras1.Visible = true;
+                        }
 
                         sendTcp.sendMessage("Entrada Confirmada", "172.17.20.204", 8733);
 
@@ -153,7 +195,6 @@ namespace Planeta
                         sendTcp.sendMessage("Entrada denegada cabeza cubo", "172.17.20.204", 8733);
 
                     }
-
                 }
             }
         }
@@ -172,7 +213,6 @@ namespace Planeta
         private void button2_Click(object sender, EventArgs e)
         {
             generarFitchersTheard.Start();
-
         }
     }
 }
