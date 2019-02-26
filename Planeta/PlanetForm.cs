@@ -77,12 +77,14 @@ namespace Planeta
                     hashServerString = Encoding.Default.GetString(md5.ComputeHash(stream));
                 }
             }
-
         }
         bool  compararfiles()
         {
             bool comparar = false;
-
+            if (hashServerString.Equals(hashShipString))
+            {
+                comparar = true;
+            }
 
             return comparar;
 
@@ -148,7 +150,19 @@ namespace Planeta
                         {
                             addLog("Planet: Entrada confirmada");
                         }
-
+                        if (cuentaAtras1.InvokeRequired)
+                        {
+                            cuentaAtras1.Invoke((MethodInvoker)delegate
+                            {
+                                cuentaAtras1.onTimer();
+                                cuentaAtras1.Visible = true;
+                            });
+                        }
+                        else
+                        {
+                            cuentaAtras1.onTimer();
+                            cuentaAtras1.Visible = true;
+                        }
 
                         sendTcp.sendMessage("Entrada Confirmada", "172.17.20.204", 8733);
 
