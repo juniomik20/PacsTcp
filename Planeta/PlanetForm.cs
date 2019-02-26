@@ -90,10 +90,7 @@ namespace Planeta
             logBoxPlanet.AppendText(DateTime.Now.ToString("HH:mm: ") + message + "\n");
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            planet();
-        }
+  
         void planet()
         {
             while (true)
