@@ -13,8 +13,8 @@ namespace TimerRebel
 {
     public partial class CuentaAtras: UserControl
     {
-        int second=20;
-        int minute=0;
+        int second=60;
+        int minute=2;
         public bool timeOut = false;
         private bool _maxClient;
         
@@ -49,7 +49,11 @@ namespace TimerRebel
                     PictureBox pic = control as PictureBox;
                     if (pic!=null)
                     {
-                        pic.Visible = true;
+                        if (true)
+                        {
+                            pic.Visible = true;
+
+                        }
                     }
                 }
                 foreach (var control in frm.Controls)
@@ -57,7 +61,7 @@ namespace TimerRebel
                     RichTextBox richText = control as RichTextBox;
                     if (richText!=null)
                     {
-                        if (richText.Name.Equals("logBoxServer"))
+                        if (richText.Name.Equals("logBoxPlanet"))
                         {
                             richText.AppendText(DateTime.Now.ToString("HH:mm: ") + "¡Server: Nave enemiga destruida!" + "\n");
                         }
