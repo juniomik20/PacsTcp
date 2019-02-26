@@ -23,6 +23,7 @@ namespace NaveEspacial
         Thread shipThread;
         Thread unZipThread;
         Thread enviarThread;
+        Thread abortThread;
 
 
         string pathUnzip = Application.StartupPath + @"\Fitxers\Descifrar\PACS.zip";
@@ -35,8 +36,8 @@ namespace NaveEspacial
         private void ConnectButton_Click(object sender, EventArgs e)
         {
 
-            sendTcp.sendMessage(identifiMessage(), "172.17.20.204", 8733);
-            //sendTcp.sendMessage(identifiMessage(), "172.17.20.157", 8733);
+            // sendTcp.sendMessage(identifiMessage(), "172.17.20.204", 8733);
+            sendTcp.sendMessage(identifiMessage(), "172.17.20.157", 8733);
 
             addLog("Ship: Connect to planet");
         }
@@ -70,11 +71,11 @@ namespace NaveEspacial
             shipThread = new Thread(ship);
             unZipThread = new Thread(unZip);
             enviarThread = new Thread(enviarArxiu);
-
             descifrarTheard = new Thread(descifrarArxius);
-
+            abortThread = new Thread(abortTime);
             ServerShipFiles.Start();
             shipThread.Start();
+            abortThread.Start();
         }
 
         void ship()
@@ -98,25 +99,33 @@ namespace NaveEspacial
                             cuentaAtras1.Invoke((MethodInvoker)delegate
                             {
                                 cuentaAtras1.onTimer();
-                                cuentaAtras1.Visible = true;
                             });
                         }
                         else
                         {
                             cuentaAtras1.onTimer();
-                            cuentaAtras1.Visible = true;
                         }
+
+                        try
+                        {
                         unZipThread.Start();
                         unZipThread.Join();
                         descifrarTheard.Start();
                         descifrarTheard.Join();
                         enviarThread.Start();
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+                      
                     }
                     receTcp.messageReady = false;
                 }
             }
         }
-        void unZip() {
+        void unZip()
+        {
             unZipClass.Descomprimir();
         }
 
@@ -133,7 +142,8 @@ namespace NaveEspacial
             }
         }
 
-        void enviarArxiu() {
+        void enviarArxiu()
+        {
             sendTcp.sendMessage(pathSend, "172.17.20.157", 5000);
             if (logBoxShip.InvokeRequired)
             {
@@ -143,11 +153,42 @@ namespace NaveEspacial
             {
                 addLog("Planet: archivo enviado");
             }
+            if (cuentaAtras1.InvokeRequired)
+            {
+                cuentaAtras1.Invoke((MethodInvoker)delegate
+                {
+                    cuentaAtras1.offTimer();
+                });
+            }
+            else
+            {
+                cuentaAtras1.offTimer();
+            }
+            abortThread.Abort();
         }
 
         public void addLog(string message)
         {
             logBoxShip.AppendText(DateTime.Now.ToString("HH:mm: ") + message + "\n");
+        }
+
+        public void abortTime()
+        {
+            while (true)
+            {
+                if (cuentaAtras1.timeOut)
+                {
+                    unZipThread.Abort();
+                    descifrarTheard.Abort();
+                    enviarThread.Abort();
+                    abortThread.Abort();
+                    shipThread.Abort();
+                    ServerShipFiles.Abort();
+                    ServerShipMessage.Abort();
+                }
+
+            }
+
         }
 
 

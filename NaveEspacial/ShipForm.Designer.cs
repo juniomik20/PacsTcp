@@ -31,6 +31,8 @@
             this.ConnectButton = new System.Windows.Forms.Button();
             this.logBoxShip = new System.Windows.Forms.RichTextBox();
             this.cuentaAtras1 = new TimerRebel.CuentaAtras();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // ConnectButton
@@ -69,7 +71,18 @@
             this.cuentaAtras1.Name = "cuentaAtras1";
             this.cuentaAtras1.Size = new System.Drawing.Size(147, 71);
             this.cuentaAtras1.TabIndex = 2;
-            this.cuentaAtras1.Visible = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox1.Image = global::NaveEspacial.Properties.Resources.explosion;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(800, 450);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 3;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Visible = false;
             // 
             // ShipForm
             // 
@@ -78,6 +91,7 @@
             this.BackgroundImage = global::NaveEspacial.Properties.Resources.screenshot_0050;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.cuentaAtras1);
             this.Controls.Add(this.logBoxShip);
             this.Controls.Add(this.ConnectButton);
@@ -85,6 +99,7 @@
             this.Name = "ShipForm";
             this.Text = "shipForm";
             this.Load += new System.EventHandler(this.ShipForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -94,6 +109,7 @@
         private System.Windows.Forms.Button ConnectButton;
         private System.Windows.Forms.RichTextBox logBoxShip;
         private TimerRebel.CuentaAtras cuentaAtras1;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
