@@ -128,12 +128,7 @@ namespace Planeta
         {
             while (true)
             {
-                if (receTcp.messageReady == true)
-                {
-                    addLog(receTcp.varMensajeClient);
-                    receTcp.messageReady = false;
-                    if (comprobarEntrada(receTcp.varMensajeClient))
-                    {
+             
                         if (receTcp.messageReady == true)
                         {
                             if (logBoxPlanet.InvokeRequired)
@@ -193,8 +188,8 @@ namespace Planeta
 
                             }
                         }
-                    }
-                }
+                    
+                
             }
         }
                 bool comprobarEntrada(string message)
