@@ -30,14 +30,14 @@ namespace Planeta
         Thread generarZipTheard;
         Thread serverMensajeThread;
         Thread serverFilesThread;
+
         public PlanetForm()
         {
             InitializeComponent();
         }
 
         private void Form1_Load(object sender, EventArgs e)
-        {
-        
+        {        
             addLog("Planet: Iniciando el Servidor...");
             pathShip = Application.StartupPath + @"\Fitxers\PacsSolShip.txt";
 
@@ -88,9 +88,6 @@ namespace Planeta
 
 
         }
-
-
-
         void generarFicheros()
         {
 
@@ -112,13 +109,10 @@ namespace Planeta
                 addLog("Archivos generados");
             }
 
-
             zipCompres.Comprimir();
             generarZipTheard.Join();
             generarFitchersTheard.Abort();
             generarZipTheard.Abort();
-
-
         }
 
 
@@ -127,7 +121,6 @@ namespace Planeta
         {
             logBoxPlanet.AppendText(DateTime.Now.ToString("HH:mm: ") + message + "\n");
         }
-
   
         void planet()
         {
@@ -179,7 +172,6 @@ namespace Planeta
                         sendTcp.sendMessage("Entrada denegada cabeza cubo", "172.17.20.204", 8733);
 
                     }
-
                 }
             }
         }
@@ -198,7 +190,6 @@ namespace Planeta
         private void button2_Click(object sender, EventArgs e)
         {
             generarFitchersTheard.Start();
-
         }
     }
 }
