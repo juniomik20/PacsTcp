@@ -94,7 +94,7 @@ namespace DesgenerarFitxers
         {
             borrarArchivos();
             crearFitxers();
-            MessageBox.Show("Has generat una moguda que flipas");
+            MessageBox.Show("Codis Generats");
         }
         public void borrarArchivos()
         {
