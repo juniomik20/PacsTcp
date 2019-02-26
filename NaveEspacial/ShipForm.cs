@@ -22,6 +22,7 @@ namespace NaveEspacial
         Thread descifrarTheard;
         Thread shipThread;
         Thread unZipThread;
+        Thread enviarThread;
 
 
         string pathUnzip = Application.StartupPath + @"\Fitxers\Descifrar\PACS.zip";
@@ -66,8 +67,10 @@ namespace NaveEspacial
             ServerShipFiles.SetApartmentState(ApartmentState.STA);
             shipThread = new Thread(ship);
             unZipThread = new Thread(unZip);
+            enviarThread = new Thread(enviarArxiu);
 
             descifrarTheard = new Thread(descifrarArxius);
+
             ServerShipFiles.Start();
             shipThread.Start();
         }
@@ -88,7 +91,24 @@ namespace NaveEspacial
                     }
                     if (receTcp.varMensajeClient.Contains("Zip"))
                     {
+                        if (cuentaAtras1.InvokeRequired)
+                        {
+                            cuentaAtras1.Invoke((MethodInvoker)delegate
+                            {
+                                cuentaAtras1.onTimer();
+                                cuentaAtras1.Visible = true;
+                            });
+                        }
+                        else
+                        {
+                            cuentaAtras1.onTimer();
+                            cuentaAtras1.Visible = true;
+                        }
                         unZipThread.Start();
+                        unZipThread.Join();
+                        descifrarTheard.Start();
+                        descifrarTheard.Join();
+                        enviarThread.Start();
                     }
                     receTcp.messageReady = false;
                 }
@@ -96,12 +116,10 @@ namespace NaveEspacial
         }
         void unZip() {
             unZipClass.Descomprimir();
-            descifrarTheard.Start();
         }
 
         void descifrarArxius()
         {
-            unZipThread.Join();
             desxifasio.crearFitxers();
             if (logBoxShip.InvokeRequired)
             {
@@ -111,11 +129,9 @@ namespace NaveEspacial
             {
                 addLog("Planet: archivos descomprimidos");
             }
-            enviarArxiu();
         }
 
         void enviarArxiu() {
-            descifrarTheard.Join();
             sendTcp.sendMessage(pathSend, "172.17.20.157", 5000);
             if (logBoxShip.InvokeRequired)
             {

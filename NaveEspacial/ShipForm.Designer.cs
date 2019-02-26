@@ -30,6 +30,7 @@
         {
             this.ConnectButton = new System.Windows.Forms.Button();
             this.logBoxShip = new System.Windows.Forms.RichTextBox();
+            this.cuentaAtras1 = new TimerRebel.CuentaAtras();
             this.SuspendLayout();
             // 
             // ConnectButton
@@ -60,6 +61,16 @@
             this.logBoxShip.TabIndex = 1;
             this.logBoxShip.Text = "";
             // 
+            // cuentaAtras1
+            // 
+            this.cuentaAtras1.BackColor = System.Drawing.Color.Transparent;
+            this.cuentaAtras1.Location = new System.Drawing.Point(331, -9);
+            this.cuentaAtras1.maxClient = false;
+            this.cuentaAtras1.Name = "cuentaAtras1";
+            this.cuentaAtras1.Size = new System.Drawing.Size(147, 71);
+            this.cuentaAtras1.TabIndex = 2;
+            this.cuentaAtras1.Visible = false;
+            // 
             // ShipForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -67,6 +78,7 @@
             this.BackgroundImage = global::NaveEspacial.Properties.Resources.screenshot_0050;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.cuentaAtras1);
             this.Controls.Add(this.logBoxShip);
             this.Controls.Add(this.ConnectButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -81,6 +93,7 @@
 
         private System.Windows.Forms.Button ConnectButton;
         private System.Windows.Forms.RichTextBox logBoxShip;
+        private TimerRebel.CuentaAtras cuentaAtras1;
     }
 }
 
