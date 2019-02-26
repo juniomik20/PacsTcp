@@ -77,6 +77,7 @@
             this.cuentaAtras1.Name = "cuentaAtras1";
             this.cuentaAtras1.Size = new System.Drawing.Size(147, 71);
             this.cuentaAtras1.TabIndex = 16;
+            this.cuentaAtras1.Visible = false;
             // 
             // PlanetForm
             // 

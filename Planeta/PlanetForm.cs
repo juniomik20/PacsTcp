@@ -144,6 +144,8 @@ namespace Planeta
                             {
                                 addLog("Ship " + receTcp.varMensajeClient);
                             }
+
+
                             receTcp.messageReady = false;
 
                             if (comprobarEntrada(receTcp.varMensajeClient))
@@ -184,9 +186,6 @@ namespace Planeta
                                     addLog("Planet: Zip Enviado");
                                 }
                                 sendTcp.sendMessage("Zip enviado", "172.17.20.204", 8733);
-
-
-
                             }
                             else
                             {
