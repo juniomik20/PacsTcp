@@ -75,7 +75,6 @@ namespace NaveEspacial
             abortThread = new Thread(abortTime);
             ServerShipFiles.Start();
             shipThread.Start();
-            abortThread.Start();
         }
 
         void ship()
@@ -105,6 +104,7 @@ namespace NaveEspacial
                         {
                             cuentaAtras1.onTimer();
                         }
+                        abortThread.Start();
 
                         try
                         {

@@ -13,7 +13,7 @@ namespace TimerRebel
 {
     public partial class CuentaAtras: UserControl
     {
-        int second=3;
+        int second=60;
         int minute=0;
         public bool timeOut = false;
         private bool _maxClient;
