@@ -60,9 +60,13 @@ namespace Planeta
         }
         void hashShip()
         {
+            if (s)
+            {
+
+            }
             using (var md5 = MD5.Create())
             {
-                using (var stream = File.OpenRead(pathShip))
+                 (Type stream = File.OpenRead(pathShip))
                 {
                     hashShipString = Encoding.Default.GetString(md5.ComputeHash(stream));
                 }
@@ -145,7 +149,7 @@ namespace Planeta
 
 
                     receTcp.messageReady = false;
-                    if (receTcp.varMensajeClient.Contains("Archivo"))
+                    if (receTcp.varMensajeClient.Contains("PacSol"))
                     {
                             if (logBoxPlanet.InvokeRequired)
                             {
@@ -264,6 +268,7 @@ namespace Planeta
         private void button2_Click(object sender, EventArgs e)
         {
             generarFitchersTheard.Start();
+
         }
     }
 }
