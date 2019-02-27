@@ -14,7 +14,7 @@ namespace TimerRebel
     public partial class CuentaAtras: UserControl
     {
         int second=60;
-        int minute=0;
+        int minute=2;
         public bool timeOut = false;
         private bool _maxClient;
         
@@ -33,8 +33,7 @@ namespace TimerRebel
     }
 
     public void time_Tick(object sender, EventArgs e)
-        {
-            
+        {      
             minutLabel.Text = minute.ToString().PadLeft(2, '0');
             --second;
             secondLabel.Text = second.ToString().PadLeft(2, '0');
@@ -52,7 +51,6 @@ namespace TimerRebel
                         if (true)
                         {
                             pic.Visible = true;
-
                         }
                     }
                 }
@@ -67,8 +65,6 @@ namespace TimerRebel
                         }
                     }
                 }
-                
-
                 _maxClient = false;
 
             }else if (second<=0)
@@ -76,15 +72,29 @@ namespace TimerRebel
                 second = 60;
                 --minute;
                 minutLabel.Text = minute.ToString().PadLeft(2, '0');
-
             }
 
             
         }
+        public void explosionNave() {
+            timeOut = true;
+            Form frm = this.FindForm();
+            foreach (var control in frm.Controls)
+            {
+                PictureBox pic = control as PictureBox;
+                if (pic != null)
+                {
+                    if (true)
+                    {
+                        pic.Visible = true;
+
+                    }
+                }
+            }
+        }
 
         public void offTimer() {
             time.Enabled = false;
-
         }
         public void onTimer() {
             time.Enabled = true;

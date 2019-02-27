@@ -72,10 +72,10 @@
             // cuentaAtras1
             // 
             this.cuentaAtras1.BackColor = System.Drawing.Color.Black;
-            this.cuentaAtras1.Location = new System.Drawing.Point(609, 142);
+            this.cuentaAtras1.Location = new System.Drawing.Point(218, 28);
             this.cuentaAtras1.maxClient = false;
             this.cuentaAtras1.Name = "cuentaAtras1";
-            this.cuentaAtras1.Size = new System.Drawing.Size(147, 71);
+            this.cuentaAtras1.Size = new System.Drawing.Size(114, 56);
             this.cuentaAtras1.TabIndex = 16;
             this.cuentaAtras1.Visible = false;
             // 

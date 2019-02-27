@@ -36,7 +36,6 @@ namespace NaveEspacial
         private void ConnectButton_Click(object sender, EventArgs e)
         {
 
-            // sendTcp.sendMessage(identifiMessage(), "172.17.20.204", 8733);
             sendTcp.sendMessage(identifiMessage(), "172.17.20.157", 8733);
 
             addLog("Ship: Connect to planet");
@@ -153,6 +152,9 @@ namespace NaveEspacial
             {
                 addLog("Planet: archivo enviado");
             }
+            sendTcp.sendMessage("Archivo enviado", "172.17.20.157", 5000);
+
+
             if (cuentaAtras1.InvokeRequired)
             {
                 cuentaAtras1.Invoke((MethodInvoker)delegate

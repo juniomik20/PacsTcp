@@ -70,12 +70,13 @@
             this.minutLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.minutLabel.AutoSize = true;
             this.minutLabel.BackColor = System.Drawing.Color.Transparent;
             this.minutLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.minutLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.minutLabel.Location = new System.Drawing.Point(13, 24);
             this.minutLabel.Name = "minutLabel";
-            this.minutLabel.Size = new System.Drawing.Size(50, 31);
+            this.minutLabel.Size = new System.Drawing.Size(46, 31);
             this.minutLabel.TabIndex = 8;
             this.minutLabel.Text = "03";
             this.minutLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;

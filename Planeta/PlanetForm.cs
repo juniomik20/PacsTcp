@@ -30,7 +30,8 @@ namespace Planeta
         Thread generarZipTheard;
         Thread serverMensajeThread;
         Thread serverFilesThread;
-
+        Thread pacsolServerThread;
+        Thread pacsolShipThread;
         public PlanetForm()
         {
             InitializeComponent();
@@ -50,8 +51,8 @@ namespace Planeta
             serverFilesThread = new Thread(() => receTcp.connecTcpPort(5000, pathShip));
             serverFilesThread.SetApartmentState(ApartmentState.STA);
             Thread planetThread = new Thread(planet);
-            Thread pacsolServerThread = new Thread(hashServer);
-            Thread pacsolShipThread = new Thread(hashShip);
+            pacsolServerThread = new Thread(hashServer);
+            pacsolShipThread = new Thread(hashShip);
 
             serverMensajeThread.Start();
             serverFilesThread.Start();
@@ -80,6 +81,8 @@ namespace Planeta
         }
         bool compararfiles()
         {
+            pacsolServerThread.Join();
+            pacsolShipThread.Join();
             bool comparar = false;
             if (hashServerString.Equals(hashShipString))
             {
@@ -128,89 +131,143 @@ namespace Planeta
         {
             while (true)
             {
-             
-                        if (receTcp.messageReady == true)
-                        {
+
+                if (receTcp.messageReady == true)
+                {
+                    if (logBoxPlanet.InvokeRequired)
+                    {
+                        logBoxPlanet.Invoke((MethodInvoker)delegate { addLog("Ship " + receTcp.varMensajeClient); });
+                    }
+                    else
+                    {
+                        addLog("Ship " + receTcp.varMensajeClient);
+                    }
+
+
+                    receTcp.messageReady = false;
+                    if (receTcp.varMensajeClient.Contains("Archivo"))
+                    {
                             if (logBoxPlanet.InvokeRequired)
                             {
-                                logBoxPlanet.Invoke((MethodInvoker)delegate { addLog("Ship " + receTcp.varMensajeClient); });
+                                logBoxPlanet.Invoke((MethodInvoker)delegate { addLog("Planet: Archivo recibido"); });
                             }
                             else
                             {
-                                addLog("Ship " + receTcp.varMensajeClient);
+                                addLog("Planet: Archivo recibido");
+                            }
+                            if (cuentaAtras1.InvokeRequired)
+                            {
+                                cuentaAtras1.Invoke((MethodInvoker)delegate
+                                {
+                                    cuentaAtras1.offTimer();
+                                });
+                            }
+                            else
+                            {
+                                cuentaAtras1.offTimer();
                             }
 
+                            pacsolShipThread.Start();
+                            pacsolServerThread.Start();
 
-                            receTcp.messageReady = false;
-
-                            if (comprobarEntrada(receTcp.varMensajeClient))
+                            if (compararfiles())
                             {
+                                sendTcp.sendMessage("Bienvenido Aliado!!", "172.17.20.204", 8733);
                                 if (logBoxPlanet.InvokeRequired)
                                 {
-                                    logBoxPlanet.Invoke((MethodInvoker)delegate { addLog("Planet: Entrada confirmada"); });
+                                    logBoxPlanet.Invoke((MethodInvoker)delegate { addLog("Planet: Aliado entrando"); });
                                 }
                                 else
                                 {
-                                    addLog("Planet: Entrada confirmada");
+                                    addLog("Planet: Aliado entrando!!");
                                 }
-
-                                if (cuentaAtras1.InvokeRequired)
-                                {
-                                    cuentaAtras1.Invoke((MethodInvoker)delegate
-                                    {
-                                        cuentaAtras1.onTimer();
-                                        cuentaAtras1.Visible = true;
-                                    });
-                                }
-                                else
-                                {
-                                    cuentaAtras1.onTimer();
-                                    cuentaAtras1.Visible = true;
-                                }
-
-                                sendTcp.sendMessage("Entrada Confirmada", "172.17.20.204", 8733);
-
-                                sendTcp.sendMessage(pathZip, "172.17.20.204", 5000);
-
-                                if (logBoxPlanet.InvokeRequired)
-                                {
-                                    logBoxPlanet.Invoke((MethodInvoker)delegate { addLog("Planet: Zip Enviado"); });
-                                }
-                                else
-                                {
-                                    addLog("Planet: Zip Enviado");
-                                }
-                                sendTcp.sendMessage("Zip enviado", "172.17.20.204", 8733);
                             }
                             else
                             {
                                 sendTcp.sendMessage("Entrada denegada cabeza cubo", "172.17.20.204", 8733);
-
+                                if (logBoxPlanet.InvokeRequired)
+                                {
+                                    logBoxPlanet.Invoke((MethodInvoker)delegate { addLog("Planet: Entrada denegada cabeza cubo!!"); });
+                                }
+                                else
+                                {
+                                    addLog("Planet: Entrada denegada cabeza cubo!!");
+                                }
+                                cuentaAtras.explosionNave();
                             }
                         }
+
+                        if (comprobarEntrada(receTcp.varMensajeClient))
+                        {
+                            if (logBoxPlanet.InvokeRequired)
+                            {
+                                logBoxPlanet.Invoke((MethodInvoker)delegate { addLog("Planet: Entrada confirmada"); });
+                            }
+                            else
+                            {
+                                addLog("Planet: Entrada confirmada");
+                            }
+
+                            if (cuentaAtras1.InvokeRequired)
+                            {
+                                cuentaAtras1.Invoke((MethodInvoker)delegate
+                                {
+                                    cuentaAtras1.onTimer();
+                                    cuentaAtras1.Visible = true;
+                                });
+                            }
+                            else
+                            {
+                                cuentaAtras1.onTimer();
+                                cuentaAtras1.Visible = true;
+                            }
+
+                            sendTcp.sendMessage("Entrada Confirmada", "172.17.20.204", 8733);
+
+                            sendTcp.sendMessage(pathZip, "172.17.20.204", 5000);
+
+                            if (logBoxPlanet.InvokeRequired)
+                            {
+                                logBoxPlanet.Invoke((MethodInvoker)delegate { addLog("Planet: Zip Enviado"); });
+                            }
+                            else
+                            {
+                                addLog("Planet: Zip Enviado");
+                            }
+                            sendTcp.sendMessage("Zip enviado", "172.17.20.204", 8733);
+                        }
+                        else
+                        {
+                            sendTcp.sendMessage("Entrada denegada cabeza cubo", "172.17.20.204", 8733);
+
+                        }
                     
-                
-            }
-        }
-                bool comprobarEntrada(string message)
-                {
+                    
 
-                    string dateTime = message.Substring(4, 4) + "-" + message.Substring(0, 2) + "-" + message.Substring(2, 2);
-                    string codeShip = message.Substring(8, 8);
-                    string codeDelivery = message.Substring(16, 12);
-                    string query = "SELECT * FROM DeliveryData WHERE(CodeDelivery = '" + codeDelivery + "') AND(DeliveryDate = CONVERT(DATETIME, '" + dateTime + "', 102)) AND(SpaceShip = '" + codeShip + "')";
-
-
-                    return ConnectBDD.SelectExistDelivery(query); ;
                 }
 
-                private void button2_Click(object sender, EventArgs e)
-                {
-                    generarFitchersTheard.Start();
-                }
+
             }
         }
-    
+        bool comprobarEntrada(string message)
+        {
+
+            string dateTime = message.Substring(4, 4) + "-" + message.Substring(0, 2) + "-" + message.Substring(2, 2);
+            string codeShip = message.Substring(8, 8);
+            string codeDelivery = message.Substring(16, 12);
+            string query = "SELECT * FROM DeliveryData WHERE(CodeDelivery = '" + codeDelivery + "') AND(DeliveryDate = CONVERT(DATETIME, '" + dateTime + "', 102)) AND(SpaceShip = '" + codeShip + "')";
+
+
+            return ConnectBDD.SelectExistDelivery(query); ;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            generarFitchersTheard.Start();
+        }
+    }
+}
+
 
 
 
