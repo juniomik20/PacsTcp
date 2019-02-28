@@ -42,7 +42,7 @@ namespace GenerarFitxers
                lletresRandom = crearLletres(i);
                 XifrarLLetraNum(lletresRandom, i);
             }
-            concatArxius(Application.StartupPath + @"\\Fitxers\\PacsSolServer.txt");
+            concatArxius(Application.StartupPath + @"\\Fitxers\\PacSol\\PacsSolServer.txt");
         }
         public string[] CodiLletraCreacio()
         {

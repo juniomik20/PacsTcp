@@ -17,8 +17,8 @@ namespace Planeta
         ConnectionClass.ConnectBDD ConnectBDD = new ConnectionClass.ConnectBDD();
         string pathZip = Application.StartupPath + @"\Fitxers\PACS.zip";
         string path = Application.StartupPath + @"\Fitxers\";
-        string pathServer = Application.StartupPath + @"\Fitxers\PacsSolServer.txt";
-        string pathShip = Application.StartupPath + @"\Fitxers\PacsSolShip.txt";
+        string pathServer = Application.StartupPath + @"\Fitxers\PacSol\PacsSolServer.txt";
+        string pathShip = Application.StartupPath + @"\Fitxers\PacSol\PacsSolShip.txt";
         string hashServerString;
         string hashShipString;
         FuncionClass.ReceTcp receTcp = new FuncionClass.ReceTcp();
@@ -40,7 +40,6 @@ namespace Planeta
         private void Form1_Load(object sender, EventArgs e)
         {
             addLog("Planet: Iniciando el Servidor...");
-            pathShip = Application.StartupPath + @"\Fitxers\PacsSolShip.txt";
 
 
             generarFitchersTheard = new Thread(generarFicheros);
@@ -60,6 +59,7 @@ namespace Planeta
         }
         void hashShip()
         {
+            serverFilesThread.Abort();
             if (InvokeRequired)
             {
                 Invoke((MethodInvoker)delegate
@@ -178,9 +178,8 @@ namespace Planeta
                         {
                             cuentaAtras1.offTimer();
                         }
-
-                        pacsolShipThread.Start();
                         pacsolServerThread.Start();
+                        pacsolShipThread.Start();
 
                         if (compararfiles())
                         {
@@ -199,16 +198,16 @@ namespace Planeta
                             sendTcp.sendMessage("Entrada denegada cabeza cubo", "172.17.20.204", 8733);
                             if (logBoxPlanet.InvokeRequired)
                             {
-                                logBoxPlanet.Invoke((MethodInvoker)delegate { addLog("Planet: Entrada denegada cabeza cubo!!"); });
+                                logBoxPlanet.Invoke((MethodInvoker)delegate { addLog("Planet: Nave enemiga Detectada y Destruida!!"); });
                             }
                             else
                             {
-                                addLog("Planet: Entrada denegada cabeza cubo!!");
+                                addLog("Planet: Nave enemiga Dectectada y Destruida!!");
                             }
-                            cuentaAtras.explosionNave();
+                            //cuentaAtras1.explosionNave();
                         }
                     }
-
+                    else {
                     if (comprobarEntrada(receTcp.varMensajeClient))
                     {
                         if (logBoxPlanet.InvokeRequired)
@@ -220,19 +219,6 @@ namespace Planeta
                             addLog("Planet: Entrada confirmada");
                         }
 
-                        if (cuentaAtras1.InvokeRequired)
-                        {
-                            cuentaAtras1.Invoke((MethodInvoker)delegate
-                            {
-                                cuentaAtras1.onTimer();
-                                cuentaAtras1.Visible = true;
-                            });
-                        }
-                        else
-                        {
-                            cuentaAtras1.onTimer();
-                            cuentaAtras1.Visible = true;
-                        }
 
                         sendTcp.sendMessage("Entrada Confirmada", "172.17.20.204", 8733);
 
@@ -247,12 +233,26 @@ namespace Planeta
                             addLog("Planet: Zip Enviado");
                         }
                         sendTcp.sendMessage("Zip enviado", "172.17.20.204", 8733);
-                    }
+                            if (cuentaAtras1.InvokeRequired)
+                            {
+                                cuentaAtras1.Invoke((MethodInvoker)delegate
+                                {
+                                    cuentaAtras1.onTimer();
+                                });
+                            }
+                            else
+                            {
+                                cuentaAtras1.onTimer();
+                            }
+                        }
                     else
                     {
                         sendTcp.sendMessage("Entrada denegada cabeza cubo", "172.17.20.204", 8733);
 
                     }
+
+                    }
+
 
 
 
