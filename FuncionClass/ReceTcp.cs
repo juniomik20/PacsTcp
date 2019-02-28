@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FuncionClass
@@ -42,6 +43,7 @@ namespace FuncionClass
 
             while (true)
             {
+                Thread.Sleep(2000);
                 messageReady = false;
                 TcpClient client = null;
                 NetworkStream stream = null;

@@ -59,8 +59,7 @@ namespace Planeta
         }
         void hashShip()
         {
-            serverFilesThread.Abort();
-            if (InvokeRequired)
+                if (InvokeRequired)
             {
                 Invoke((MethodInvoker)delegate
                 {
