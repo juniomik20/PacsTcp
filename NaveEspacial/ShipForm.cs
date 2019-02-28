@@ -36,7 +36,7 @@ namespace NaveEspacial
         private void ConnectButton_Click(object sender, EventArgs e)
         {
 
-            sendTcp.sendMessage(identifiMessage(), "172.17.20.204", 8733);
+            sendTcp.sendMessage(identifiMessage(), "172.17.20.74", 8733);
 
             addLog("Ship: Connect to planet");
         }
@@ -104,20 +104,37 @@ namespace NaveEspacial
                             cuentaAtras1.onTimer();
                         }
                         abortThread.Start();
-
                         try
                         {
-                        unZipThread.Start();
-                        unZipThread.Join();
-                        descifrarTheard.Start();
-                        descifrarTheard.Join();
-                        enviarThread.Start();
+                            unZipThread.Start();
+                            unZipThread.Join();
+                            descifrarTheard.Start();
+                            descifrarTheard.Join();
+                            enviarThread.Start();
                         }
                         catch (Exception)
                         {
 
                         }
-                      
+
+                    }
+                    else if(receTcp.varMensajeClient.Contains("cubo")) {
+                        if (explosionShip.InvokeRequired)
+                        {
+                            explosionShip.Invoke((MethodInvoker)delegate { explosionShip.Visible = true;
+                                cuentaAtras1.timeOut = true;
+
+
+                            });
+                        }
+                        else
+                        {
+                            explosionShip.Visible = true;
+                            cuentaAtras1.timeOut = true;
+                        }
+
+
+
                     }
                     receTcp.messageReady = false;
                 }
@@ -143,7 +160,7 @@ namespace NaveEspacial
 
         void enviarArxiu()
         {
-            sendTcp.sendMessage(pathSend, "172.17.20.204", 5000);
+            sendTcp.sendMessage(pathSend, "172.17.20.74", 5000);
             if (logBoxShip.InvokeRequired)
             {
                 logBoxShip.Invoke((MethodInvoker)delegate { addLog("Planet: archivo enviado"); });
@@ -152,7 +169,7 @@ namespace NaveEspacial
             {
                 addLog("Planet: archivo enviado");
             }
-            sendTcp.sendMessage("PacSol enviado", "172.17.20.204", 8733);
+            sendTcp.sendMessage("PacSol enviado", "172.17.20.74", 8733);
 
 
             if (cuentaAtras1.InvokeRequired)
