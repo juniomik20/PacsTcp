@@ -47,6 +47,7 @@ namespace FuncionClass
                 messageReady = false;
                 TcpClient client = null;
                 NetworkStream stream = null;
+                
                 try
                 {
                     if (Listener.Pending())
@@ -106,7 +107,6 @@ namespace FuncionClass
                 netstream.Close();
                 Fs.Close();
             }
-
         }
     }
 }
